@@ -1,0 +1,34 @@
+[tool.ruff]
+line-length = 120
+target-version = "py38"
+
+[tool.ruff.lint]
+# Allow reasonable code quality for legacy codebase
+ignore = [
+    "E401",  # multiple-imports-on-one-line (style preference)
+    "E402",  # module-import-not-at-top-of-file (flexibility for legacy code)
+    "E711",  # none-comparison (== None vs is None - style choice)
+    "E713",  # not-in-test (item not in list vs not item in list - style)
+    "E721",  # type-comparison (type() == vs isinstance - performance choice)
+    "E731",  # lambda-assignment (lambda functions are valid)
+    "F401",  # unused-import (handled by refined bot analysis)
+    "F403",  # undefined-local-with-import-star (wildcard imports are intentional)
+]
+
+# Only enforce critical errors that indicate real bugs
+select = [
+    "E",    # pycodestyle errors (syntax and formatting)
+    "F",    # Pyflakes (undefined names, etc.)
+    "W",    # pycodestyle warnings
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Allow wildcard imports in __init__.py files (standard practice)
+"__init__.py" = ["F401", "F403"]
+# Be more lenient with legacy compatibility code
+"src/colony/base/legacy.py" = ["F821"]  # Already handled with noqa comments
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

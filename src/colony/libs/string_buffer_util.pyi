@@ -1,9 +1,9 @@
 from os import PathLike
-from typing import Self, Sequence, Type, TypeVar
+from typing import Self, Sequence, Type, TypeVar, Generic
 
 T = TypeVar("T", bound=bytes | str)
 
-class StringBuffer[T]:
+class StringBuffer(Generic[T]):
     softspace: int
     closed: bool
     string_list: Sequence[T]

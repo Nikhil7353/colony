@@ -1,5 +1,5 @@
 from os import PathLike
-from typing import Any, Iterator, Mapping, Sequence, TypeVar
+from typing import Any, Iterator, Mapping, Sequence, TypeVar, Generic
 
 T = TypeVar("T")
 K = TypeVar("K")
@@ -12,7 +12,7 @@ class Decimal(float):
 
     def __new__(cls, value: float = ...): ...
 
-class JournaledList[T](list):
+class JournaledList(Generic[T], list):
     def __init__(self, *args, **kwargs): ...
     def append(self, object: T): ...
     def remove(self, object: T): ...
@@ -20,7 +20,7 @@ class JournaledList[T](list):
     def get_appends(self) -> Sequence[T]: ...
     def get_removes(self) -> Sequence[T]: ...
 
-class OrderedMap[K, V]:
+class OrderedMap(Generic[K, V]):
     tuples_list: Sequence[tuple[K, V]]
 
     def __init__(
@@ -35,14 +35,14 @@ class OrderedMap[K, V]:
     def iteritems(self) -> Iterator[tuple[K, V]]: ...
     def iterkeys(self) -> Iterator[K]: ...
 
-class OrderedMapIterator[K, V]:
+class OrderedMapIterator(Generic[K, V]):
     ordered_map: OrderedMap[K, V]
     current_index: int
 
     def __init__(self, ordered_map: OrderedMap[K, V]): ...
     def next(self) -> V: ...
 
-class MultipleValueMap[K, V]:
+class MultipleValueMap(Generic[K, V]):
     def __init__(self): ...
     def get(
         self, key: K, default_value: V | Sequence[V] | None = ...

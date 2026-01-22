@@ -132,7 +132,8 @@ class XmlTest(colony.ColonyTestCase):
         )
         self.assertEqual(
             result,
-            "<person><address><city>London</city><country>United Kingdom</country><street>Wood Street</street></address><age>32</age><name>Hello World</name></person>",
+            "<person><address><city>London</city><country>United Kingdom</country>"
+            "<street>Wood Street</street></address><age>32</age><name>Hello World</name></person>",
         )
 
         result = colony.dict_to_xml(
