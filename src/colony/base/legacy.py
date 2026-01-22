@@ -187,37 +187,37 @@ a the interpreter as a set of three integer digits """
 if PYTHON_3:
     LONG = int
 else:
-    LONG = long  # @UndefinedVariable
+    LONG = long  # noqa: F821
 
 if PYTHON_3:
     BYTES = bytes
 else:
-    BYTES = str  # @UndefinedVariable
+    BYTES = str  # noqa: F821
 
 if PYTHON_3:
     UNICODE = str
 else:
-    UNICODE = unicode  # @UndefinedVariable
+    UNICODE = unicode  # noqa: F821
 
 if PYTHON_3:
     OLD_UNICODE = None
 else:
-    OLD_UNICODE = unicode  # @UndefinedVariable
+    OLD_UNICODE = unicode  # noqa: F821
 
 if PYTHON_3:
     STRINGS = (str,)
 else:
-    STRINGS = (str, unicode)  # @UndefinedVariable
+    STRINGS = (str, unicode)  # noqa: F821
 
 if PYTHON_3:
     ALL_STRINGS = (bytes, str)
 else:
-    ALL_STRINGS = (bytes, str, unicode)  # @UndefinedVariable
+    ALL_STRINGS = (bytes, str, unicode)  # noqa: F821
 
 if PYTHON_3:
     INTEGERS = (int,)
 else:
-    INTEGERS = (int, long)  # @UndefinedVariable
+    INTEGERS = (int, long)  # noqa: F821
 
 # saves a series of global symbols that are going to be
 # used latter for some of the legacy operations
@@ -228,7 +228,7 @@ _bytes = bytes
 _range = range
 
 try:
-    _xrange = xrange  # @UndefinedVariable
+    _xrange = xrange  # noqa: F821
 except Exception:
     _xrange = None
 
@@ -248,32 +248,32 @@ else:
     HTTPError = urllib2.HTTPError
 
 if PYTHON_3:
-    HTTPConnection = http.client.HTTPConnection  # @UndefinedVariable
+    HTTPConnection = http.client.HTTPConnection  # noqa: F821
 else:
     HTTPConnection = httplib.HTTPConnection
 
 if PYTHON_3:
-    HTTPSConnection = http.client.HTTPSConnection  # @UndefinedVariable
+    HTTPSConnection = http.client.HTTPSConnection  # noqa: F821
 else:
     HTTPSConnection = httplib.HTTPSConnection
 
 try:
-    _execfile = execfile  # @UndefinedVariable
+    _execfile = execfile  # noqa: F821
 except Exception:
     _execfile = None
 
 try:
-    _reduce = reduce  # @UndefinedVariable
+    _reduce = reduce  # noqa: F821
 except Exception:
     _reduce = None
 
 try:
-    _reload = reload  # @UndefinedVariable
+    _reload = reload  # noqa: F821
 except Exception:
     _reload = None
 
 try:
-    _unichr = unichr  # @UndefinedVariable
+    _unichr = unichr  # noqa: F821
 except Exception:
     _unichr = None
 
@@ -412,14 +412,14 @@ def is_unicode(value):
     if PYTHON_3:
         return type(value) == _str
     else:
-        return type(value) == unicode  # @UndefinedVariable
+        return type(value) == unicode  # noqa: F821
 
 
 def is_bytes(value):
     if PYTHON_3:
         return type(value) == _bytes
     else:
-        return type(value) == _str  # @UndefinedVariable
+        return type(value) == _str  # noqa: F821
 
 
 def is_string(value, all=False):
@@ -466,7 +466,7 @@ def execfile(path, global_vars, local_vars=None, encoding="utf-8"):
         file.close()
     data = data.decode(encoding)
     code = compile(data, path, "exec")
-    exec(code, global_vars, local_vars)  # @UndefinedVariable
+    exec(code, global_vars, local_vars)  # noqa: F821
 
 
 def walk(path, visit, arg):
@@ -534,14 +534,14 @@ def urlopen(*args, **kwargs):
     if PYTHON_3:
         return urllib.request.urlopen(*args, **kwargs)
     else:
-        return urllib2.urlopen(*args, **kwargs)  # @UndefinedVariable
+        return urllib2.urlopen(*args, **kwargs)  # noqa: F821
 
 
 def build_opener(*args, **kwargs):
     if PYTHON_3:
         return urllib.request.build_opener(*args, **kwargs)
     else:
-        return urllib2.build_opener(*args, **kwargs)  # @UndefinedVariable
+        return urllib2.build_opener(*args, **kwargs)  # noqa: F821
 
 
 def to_timestamp(date_time):
@@ -587,40 +587,40 @@ def urlencode(*args, **kwargs):
     if PYTHON_3:
         return urllib.parse.urlencode(*args, **kwargs)
     else:
-        return urllib.urlencode(*args, **kwargs)  # @UndefinedVariable
+        return urllib.urlencode(*args, **kwargs)  # noqa: F821
 
 
 def quote(*args, **kwargs):
     if PYTHON_3:
         return urllib.parse.quote(*args, **kwargs)
     else:
-        return urllib.quote(*args, **kwargs)  # @UndefinedVariable
+        return urllib.quote(*args, **kwargs)  # noqa: F821
 
 
 def quote_plus(*args, **kwargs):
     if PYTHON_3:
         return urllib.parse.quote_plus(*args, **kwargs)
     else:
-        return urllib.quote_plus(*args, **kwargs)  # @UndefinedVariable
+        return urllib.quote_plus(*args, **kwargs)  # noqa: F821
 
 
 def unquote(*args, **kwargs):
     if PYTHON_3:
         return urllib.parse.unquote(*args, **kwargs)
     else:
-        return urllib.unquote(*args, **kwargs)  # @UndefinedVariable
+        return urllib.unquote(*args, **kwargs)  # noqa: F821
 
 
 def unquote_plus(*args, **kwargs):
     if PYTHON_3:
         return urllib.parse.unquote_plus(*args, **kwargs)
     else:
-        return urllib.unquote_plus(*args, **kwargs)  # @UndefinedVariable
+        return urllib.unquote_plus(*args, **kwargs)  # noqa: F821
 
 
 def cmp_to_key(*args, **kwargs):
     if PYTHON_3:
-        return dict(key=functools.cmp_to_key(*args, **kwargs))  # @UndefinedVariable
+        return dict(key=functools.cmp_to_key(*args, **kwargs))  # noqa: F821
     else:
         return dict(cmp=args[0])
 

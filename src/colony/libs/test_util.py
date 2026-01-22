@@ -45,7 +45,7 @@ class ColonyTestCase(unittest.TestCase):
 
     @staticmethod
     def get_test_case():
-        return self
+        return None
 
     @staticmethod
     def get_pre_conditions():
