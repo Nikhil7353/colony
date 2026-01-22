@@ -45,28 +45,18 @@ def verify(condition, message=None, code=None, exception=None, **kwargs):
 
 def verify_equal(first, second, message=None, code=None, exception=None, **kwargs):
     message = message or "Expected %s got %s" % (repr(second), repr(first))
-    return verify(
-        first == second, message=message, code=code, exception=exception, **kwargs
-    )
+    return verify(first == second, message=message, code=code, exception=exception, **kwargs)
 
 
 def verify_not_equal(first, second, message=None, code=None, exception=None, **kwargs):
     message = message or "Expected %s not equal to %s" % (repr(first), repr(second))
-    return verify(
-        not first == second, message=message, code=code, exception=exception, **kwargs
-    )
+    return verify(not first == second, message=message, code=code, exception=exception, **kwargs)
 
 
-def verify_type(
-    value, types, null=True, message=None, code=None, exception=None, **kwargs
-):
+def verify_type(value, types, null=True, message=None, code=None, exception=None, **kwargs):
     message = message or "Expected %s to have type %s" % (repr(value), repr(types))
     return verify(
-        (null and value == None) or isinstance(value, types),
-        message=message,
-        code=code,
-        exception=exception,
-        **kwargs
+        (null and value == None) or isinstance(value, types), message=message, code=code, exception=exception, **kwargs
     )
 
 

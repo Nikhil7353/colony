@@ -97,9 +97,7 @@ def normalize_path(path):
 
     # in case the current operative system is windows based and
     # the normalized path does not start with the long path prefix
-    if os_name in WINDOWS_PLATFORMS_VALUE and not normalized_path.startswith(
-        LONG_PATH_PREFIX
-    ):
+    if os_name in WINDOWS_PLATFORMS_VALUE and not normalized_path.startswith(LONG_PATH_PREFIX):
         # creates the path in the windows mode, adds
         # the support for long path names with the prefix token
         normalized_path = LONG_PATH_PREFIX + normalized_path
@@ -202,9 +200,7 @@ def copy_directory(source_path, target_path, replace_files=True, copy_hidden=Tru
         # in case it is a directory
         if stat.S_ISDIR(mode):
             # copies the (sub) directory
-            copy_directory(
-                entry_full_path, target_full_path, replace_files, copy_hidden
-            )
+            copy_directory(entry_full_path, target_full_path, replace_files, copy_hidden)
         # in case it is a symbolic link (special
         # care must be taken in such case)
         elif stat.S_ISLNK(mode):
@@ -301,10 +297,7 @@ def remove_directory(directory_path):
     directory_path = normalize_path(directory_path)
 
     # creates the list of paths for the directory path
-    paths_list = [
-        os.path.join(directory_path, file_path)
-        for file_path in os.listdir(directory_path)
-    ]
+    paths_list = [os.path.join(directory_path, file_path) for file_path in os.listdir(directory_path)]
 
     # iterates over all the paths in the paths
     # list to remove them
@@ -513,22 +506,15 @@ def _relative_path_windows(path, start_path=CURRENT_DIRECTORY):
     # is not (error)
     if path_is_unc ^ start_is_unc:
         # raises a value error
-        raise ValueError(
-            "cannot mix unc and non-unc paths %s and %s" % (path, start_path)
-        )
+        raise ValueError("cannot mix unc and non-unc paths %s and %s" % (path, start_path))
 
     if path_prefix.lower() != start_prefix.lower():
         if path_is_unc:
             # raises a value error
-            raise ValueError(
-                "path is on unc root %s, start on unc root %s"
-                % (path_prefix, start_prefix)
-            )
+            raise ValueError("path is on unc root %s, start on unc root %s" % (path_prefix, start_prefix))
         else:
             # raises a value error
-            raise ValueError(
-                "path is on drive %s, start on drive %s" % (path_prefix, start_prefix)
-            )
+            raise ValueError("path is on drive %s, start on drive %s" % (path_prefix, start_prefix))
 
     # works out how much of the file path
     # is shared by start and path
@@ -635,10 +621,7 @@ def _abspath_split(path):
 
 
 # checks if the current platform is of type windows
-if (
-    NT_PLATFORM_VALUE in sys.builtin_module_names
-    or CE_PLATFORM_VALUE in sys.builtin_module_names
-):
+if NT_PLATFORM_VALUE in sys.builtin_module_names or CE_PLATFORM_VALUE in sys.builtin_module_names:
     # sets the separator value and the relative
     # path method values (for windows)
     SEPARATOR = "\\"

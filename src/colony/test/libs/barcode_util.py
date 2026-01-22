@@ -61,33 +61,25 @@ class BarcodeTest(colony.ColonyTestCase):
         # encodes a "normal" even length based string value and asserts
         # that the encoded value is the expected one
         encoded_value = colony.encode_code_128("123456")
-        self.assertEqual(
-            encoded_value, colony.legacy.u("\xcb123456/\xce", encoding="unicode_escape")
-        )
+        self.assertEqual(encoded_value, colony.legacy.u("\xcb123456/\xce", encoding="unicode_escape"))
 
         # encodes a "normal" even length based string value and asserts
         # that the encoded value is the expected one, the used code set
         # is the a code set
         encoded_value = colony.encode_code_128("123456", "A")
-        self.assertEqual(
-            encoded_value, colony.legacy.u("\xcb123456/\xce", encoding="unicode_escape")
-        )
+        self.assertEqual(encoded_value, colony.legacy.u("\xcb123456/\xce", encoding="unicode_escape"))
 
         # encodes a "normal" even length based string value and asserts
         # that the encoded value is the expected one, the used code set
         # is the b code set
         encoded_value = colony.encode_code_128("123456", "B")
-        self.assertEqual(
-            encoded_value, colony.legacy.u("\xcc1234560\xce", encoding="unicode_escape")
-        )
+        self.assertEqual(encoded_value, colony.legacy.u("\xcc1234560\xce", encoding="unicode_escape"))
 
         # encodes a "normal" even length based string value and asserts
         # that the encoded value is the expected one, the used code set
         # is the c code set
         encoded_value = colony.encode_code_128("123456", "C")
-        self.assertEqual(
-            encoded_value, colony.legacy.u("\xcd,BXL\xce", encoding="unicode_escape")
-        )
+        self.assertEqual(encoded_value, colony.legacy.u("\xcd,BXL\xce", encoding="unicode_escape"))
 
         # encodes using an invalid code set, should raise a runtime error
         # indicating the issue associated with the invalid code set

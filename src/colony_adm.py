@@ -100,35 +100,19 @@ def unindent():
 def help():
     output("CPM - package management for Colony Framework")
     print("")
-    print(
-        "  cpm clone <target>           Clones the base colony instance into the target directory (new project)"
-    )
-    print(
-        "  cpm cleanup <target>         Cleans the current instance removing extra files"
-    )
+    print("  cpm clone <target>           Clones the base colony instance into the target directory (new project)")
+    print("  cpm cleanup <target>         Cleans the current instance removing extra files")
     print("  cpm pack <target>            Packs the current instance into a .zip file")
     print(
         "  cpm generate [target] <...>  Generates a .json descriptor file for the provided python "
         "file and then runs the build operation for the generated .json file, effectively build the package item"
     )
-    print(
-        "  cpm build [descriptor] <...> Builds the target .json descriptor file into a package file"
-    )
-    print(
-        "  cpm deploy [package]         Deploys the target .cbx ile into the current instance"
-    )
-    print(
-        "  cpm info [package]           Prints information about the package to the standard output"
-    )
-    print(
-        "  cpm install [name] <...>     Installs the package with the provided name from the remote repositories"
-    )
-    print(
-        "  cpm upgrade                  Updates the complete set of packages deployed in the instance"
-    )
-    print(
-        "  cpm require [path] <...>     Installs the complete set of packages defined in the requirements file"
-    )
+    print("  cpm build [descriptor] <...> Builds the target .json descriptor file into a package file")
+    print("  cpm deploy [package]         Deploys the target .cbx ile into the current instance")
+    print("  cpm info [package]           Prints information about the package to the standard output")
+    print("  cpm install [name] <...>     Installs the package with the provided name from the remote repositories")
+    print("  cpm upgrade                  Updates the complete set of packages deployed in the instance")
+    print("  cpm require [path] <...>     Installs the complete set of packages defined in the requirements file")
     print(
         "  cpm upload [target] <repo>   Generates a package for the provided path and then uploads it "
         "to the currently configured primary repository, or another repository if defined"
@@ -460,9 +444,7 @@ def _pack(path):
 
     # opens the archive path as a zip file for writing and
     # then writes the current "instance" directory into the zip
-    file = zipfile.ZipFile(
-        archive_path, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=True
-    )
+    file = zipfile.ZipFile(archive_path, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=True)
     try:
         _zip_directory(path, "/", file)
     finally:
@@ -731,9 +713,7 @@ def _build(path, short_name=True):
 
     # opens the target zip file to be used in write
     # mode (it's going to receive the data)
-    file = zipfile.ZipFile(
-        name, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=True
-    )
+    file = zipfile.ZipFile(name, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=True)
 
     try:
         # iterates over all the resources to be written
@@ -1112,17 +1092,13 @@ def _upload(path, repo="colony", generate=True, delete=True):
 
     # prints a message about the upload operation that is going to occur
     # so that the end user knows where the upload is going
-    output(
-        "Uploading %s into %s repo (%s)" % (descriptor["short_name"], repo, repo_url)
-    )
+    output("Uploading %s into %s repo (%s)" % (descriptor["short_name"], repo, repo_url))
 
     # creates the URL format, taking into account the defined URL and the
     # current descriptor and then runs the upload, using a post operation
     url = repo_url + "packages"
     login_url = repo_url + "api/admin/login"
-    auth = appier.post(
-        login_url, params=dict(username=repo_username, password=repo_password)
-    )
+    auth = appier.post(login_url, params=dict(username=repo_username, password=repo_password))
     appier.post(
         url,
         data_m=dict(

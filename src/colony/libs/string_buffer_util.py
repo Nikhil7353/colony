@@ -88,9 +88,7 @@ class StringBuffer(object):
         self.regenerate()
 
         if size:
-            return_value = self.current_value[
-                self.current_position : self.current_position + size
-            ]
+            return_value = self.current_value[self.current_position : self.current_position + size]
             self.seek(size, os.SEEK_CUR)
         else:
             return_value = self.current_value[self.current_position :]

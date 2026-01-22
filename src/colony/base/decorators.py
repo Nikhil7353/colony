@@ -400,9 +400,7 @@ def inject_dependencies(function):
         # tries to retrieve the set function using both the complete plugin id and
         # version approach and the version only approach
         set_function = dependency_functions_map.get(dependency_plugin_tuple, None)
-        set_function = set_function or dependency_functions_map.get(
-            dependency_plugin_simple_tuple, None
-        )
+        set_function = set_function or dependency_functions_map.get(dependency_plugin_simple_tuple, None)
 
         # in case the set function is not defined
         if not set_function:
@@ -461,9 +459,7 @@ def plugin_inject(plugin_id, plugin_version=None, load_plugin=False):
 
         # sets the current function for dependency injection
         # in the current function
-        inject_dependencies_current.dependency_functions_map[
-            dependency_plugin_tuple
-        ] = function
+        inject_dependencies_current.dependency_functions_map[dependency_plugin_tuple] = function
 
         # in case the load plugin test should be made before injecting
         # the dependency
@@ -621,9 +617,7 @@ def set_configuration_property(function):
         function(*args, **kwargs)
 
         # retrieves the set configuration property functions map
-        set_configuration_property_functions_map = (
-            function.set_configuration_property_functions_map
-        )
+        set_configuration_property_functions_map = function.set_configuration_property_functions_map
 
         # unpacks the function arguments
         original_plugin = args[0]
@@ -637,18 +631,12 @@ def set_configuration_property(function):
             return
 
         # retrieves the set configuration property function from set configuration property functions map
-        set_configuration_property_function = set_configuration_property_functions_map[
-            property_name
-        ]
+        set_configuration_property_function = set_configuration_property_functions_map[property_name]
 
         # retrieves the function name and the set configuration property method from the original
         # plugin
-        set_configuration_property_function_name = (
-            set_configuration_property_function.__name__
-        )
-        set_configuration_property_method = getattr(
-            original_plugin, set_configuration_property_function_name
-        )
+        set_configuration_property_function_name = set_configuration_property_function.__name__
+        set_configuration_property_method = getattr(original_plugin, set_configuration_property_function_name)
 
         # calls the set configuration property method
         set_configuration_property_method(property_name, property)
@@ -692,9 +680,7 @@ def set_configuration_property_method(property_name, load_plugin=False):
 
         # sets the current function for set configuration property
         # in the current function
-        set_configuration_property_current.set_configuration_property_functions_map[
-            property_name
-        ] = function
+        set_configuration_property_current.set_configuration_property_functions_map[property_name] = function
 
         # in case the load plugin test should be made before setting
         # the configuration property
@@ -734,9 +720,7 @@ def unset_configuration_property(function):
         function(*args, **kwargs)
 
         # retrieves the unset configuration property functions map
-        unset_configuration_property_functions_map = (
-            function.unset_configuration_property_functions_map
-        )
+        unset_configuration_property_functions_map = function.unset_configuration_property_functions_map
 
         # unpacks the function arguments
         original_plugin = args[0]
@@ -749,18 +733,12 @@ def unset_configuration_property(function):
             return
 
         # retrieves the unset configuration property function from unset configuration property functions map
-        unset_configuration_property_function = (
-            unset_configuration_property_functions_map[property_name]
-        )
+        unset_configuration_property_function = unset_configuration_property_functions_map[property_name]
 
         # retrieves the function name and the unset configuration property method from the original
         # plugin
-        unset_configuration_property_function_name = (
-            unset_configuration_property_function.__name__
-        )
-        unset_configuration_property_method = getattr(
-            original_plugin, unset_configuration_property_function_name
-        )
+        unset_configuration_property_function_name = unset_configuration_property_function.__name__
+        unset_configuration_property_method = getattr(original_plugin, unset_configuration_property_function_name)
 
         # calls the unset configuration property method
         unset_configuration_property_method(property_name)
@@ -804,9 +782,7 @@ def unset_configuration_property_method(property_name, load_plugin=False):
 
         # unsets the current function for unset configuration property
         # in the current function
-        unset_configuration_property_current.unset_configuration_property_functions_map[
-            property_name
-        ] = function
+        unset_configuration_property_current.unset_configuration_property_functions_map[property_name] = function
 
         # in case the load plugin test should be made before unsetting
         # the configuration property
@@ -879,9 +855,7 @@ def create_load_plugin_interceptor(function):
             original_plugin_id = original_plugin.id
 
             # in case the plugin load was unsuccessful
-            if not plugin_manager.load_plugin(
-                original_plugin_id, system.FULL_LOAD_TYPE
-            ):
+            if not plugin_manager.load_plugin(original_plugin_id, system.FULL_LOAD_TYPE):
                 return None
 
         # calls the callback function

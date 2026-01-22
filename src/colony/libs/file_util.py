@@ -820,9 +820,7 @@ class FileTransactionContext(FileContext, TransactionContext):
         # that if the (real) file path exists the removed file path
         # must not exist otherwise if the virtual file path exists
         # the file also exists
-        exists_file_path = (
-            file_path_exists and not removed_file_path
-        ) or virtual_file_path_exists
+        exists_file_path = (file_path_exists and not removed_file_path) or virtual_file_path_exists
 
         # returns the exists file path result
         return exists_file_path
@@ -1084,9 +1082,7 @@ class FileTransactionContext(FileContext, TransactionContext):
             # list, this will ensure that no duplicate operations
             # exist (this is a critical performance trick)
             path_tuples_list = (
-                remove_duplicates
-                and list_util.list_no_duplicates(self.path_tuples_list)
-                or self.path_tuples_list
+                remove_duplicates and list_util.list_no_duplicates(self.path_tuples_list) or self.path_tuples_list
             )
 
             # iterates over all the path tuples in
@@ -1096,14 +1092,10 @@ class FileTransactionContext(FileContext, TransactionContext):
                 operation = path_tuple[0]
 
                 # creates the path tuple process method name from the operation
-                path_tuple_process_method_name = (
-                    PATH_TUPLE_PROCESS_METHOD_PREFIX + operation
-                )
+                path_tuple_process_method_name = PATH_TUPLE_PROCESS_METHOD_PREFIX + operation
 
                 # retrieves the path tuple process method
-                path_tuple_process_method = getattr(
-                    self, path_tuple_process_method_name
-                )
+                path_tuple_process_method = getattr(self, path_tuple_process_method_name)
 
                 # calls the path tuple process method
                 path_tuple_process_method(path_tuple)
@@ -1186,9 +1178,7 @@ class FileTransactionContext(FileContext, TransactionContext):
         for temporary_path_item in temporary_path_items:
             # creates the temporary complete path item, by joining the
             # temporary path and the temporary path item
-            temporary_complete_path_item = os.path.join(
-                self.temporary_path, temporary_path_item
-            )
+            temporary_complete_path_item = os.path.join(self.temporary_path, temporary_path_item)
 
             # in case the path does not exist (no need to proceed
             # with removal)

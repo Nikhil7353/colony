@@ -60,9 +60,7 @@ class CryptTest(colony.ColonyTestCase):
         self.assertEqual(type(result), colony.legacy.UNICODE)
         self.assertEqual(result, "$1$salt$qJH7.N4xYta3aEG/dfqo/0")
 
-        result = colony.md5_crypt(
-            colony.legacy.u("password"), colony.legacy.u("01234567")
-        )
+        result = colony.md5_crypt(colony.legacy.u("password"), colony.legacy.u("01234567"))
         self.assertEqual(type(result), colony.legacy.UNICODE)
         self.assertEqual(result, "$1$01234567$b5lh2mHyD2PdJjFfALlEz1")
 

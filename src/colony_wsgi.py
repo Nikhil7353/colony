@@ -268,7 +268,7 @@ class ServerThread(threading.Thread):
         cer_file=None,
         kwargs=dict(),
         *args,
-        **_kwargs
+        **_kwargs,
     ):
         threading.Thread.__init__(self, *args, **_kwargs)
         self.server = server
@@ -345,15 +345,10 @@ def serve(
     version_method = _globals.get("version_" + server, None)
     server_version = version_method() if version_method else None
     if server_version:
-        sys.stderr.write(
-            "Starting Colony WSGI with '%s' version '%s' ..." % (server, server_version)
-            + "\n"
-        )
+        sys.stderr.write("Starting Colony WSGI with '%s' version '%s' ..." % (server, server_version) + "\n")
     else:
         sys.stderr.write("Starting Colony WSGI with '%s' ..." % server + "\n")
-    return_value = method(
-        host=host, port=port, ssl=ssl, key_file=key_file, cer_file=cer_file, **kwargs
-    )
+    return_value = method(host=host, port=port, ssl=ssl, key_file=key_file, cer_file=cer_file, **kwargs)
     sys.stderr.write("Stopped Colony WSGI using '%s' ..." % server + "\n")
     return return_value
 

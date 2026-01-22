@@ -38,16 +38,12 @@ QUOTE_SAFE_CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345678
 QUOTE_SAFE_MAPS = {}
 """ The map of cached (buffered) safe lists to be quoted """
 
-HEX_TO_CHAR_MAP = dict(
-    (legacy.bytes("%02x" % i), legacy.bytes(chr(i))) for i in range(256)
-)
+HEX_TO_CHAR_MAP = dict((legacy.bytes("%02x" % i), legacy.bytes(chr(i))) for i in range(256))
 """ The map associating the hexadecimal byte (256) values
 with the integers, the association is done using byte values """
 
 # updates the map with the upper case values
-HEX_TO_CHAR_MAP.update(
-    (legacy.bytes("%02X" % i), legacy.bytes(chr(i))) for i in range(256)
-)
+HEX_TO_CHAR_MAP.update((legacy.bytes("%02X" % i), legacy.bytes(chr(i))) for i in range(256))
 
 
 def quote(string_value, safe="/"):
@@ -93,9 +89,7 @@ def quote(string_value, safe="/"):
             reference = index if legacy.PYTHON_3 else character
 
             # adds the "valid" character or the safe map entry
-            safe_map[reference] = (
-                character if (character in safe) else ("%%%02X" % index)
-            )
+            safe_map[reference] = character if (character in safe) else ("%%%02X" % index)
 
         # sets the safe map in the cache quote safe maps
         QUOTE_SAFE_MAPS[cache_key] = safe_map

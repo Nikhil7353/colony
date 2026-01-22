@@ -212,9 +212,7 @@ def map_remove(removal_map, destiny_map):
         del destiny_map[key]
 
 
-def map_extend(
-    base_map, extension_map, override=True, recursive=False, copy_base_map=True
-):
+def map_extend(base_map, extension_map, override=True, recursive=False, copy_base_map=True):
     """
     Extends the given map with the extension map,
     retrieving a map resulting of the merge of both maps.
@@ -468,9 +466,7 @@ def map_output(map, output_method=sys.stdout.write, indentation=""):
         else:
             # creates a string representation of the map value and
             # then "runs" it to the output method
-            map_value_string = (
-                indentation + legacy.UNICODE(key) + " = " + legacy.UNICODE(map_value)
-            )
+            map_value_string = indentation + legacy.UNICODE(key) + " = " + legacy.UNICODE(map_value)
             output_method(map_value_string)
 
 

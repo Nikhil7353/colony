@@ -168,9 +168,7 @@ def get_address_ip4_all():
 
     # retrieves the ip4 address using the "force" method in
     # case the previous retrieval was not successful
-    address_ip4 = (
-        address_ip4 == ALL_IP4_ADDRESS and get_address_ip4_force() or address_ip4
-    )
+    address_ip4 = address_ip4 == ALL_IP4_ADDRESS and get_address_ip4_force() or address_ip4
 
     # returns the ip4 address
     return address_ip4
@@ -251,9 +249,7 @@ def get_address_ip6_all():
 
     # retrieves the ip6 address using the "force" method in
     # case the previous retrieval was not successful
-    address_ip6 = (
-        address_ip6 == ALL_IP6_ADDRESS and get_address_ip6_force() or address_ip6
-    )
+    address_ip6 = address_ip6 == ALL_IP6_ADDRESS and get_address_ip6_force() or address_ip6
 
     # returns the ip6 address
     return address_ip6
@@ -389,9 +385,7 @@ def ip4_address_to_network(ip4_address):
     # packs the series of bytes into a network signed byte stream
     ip4_address_data_bytes_length = len(ip4_address_data_bytes)
     ip4_address_data_bytes_length_string = str(ip4_address_data_bytes_length)
-    ip4_address_network = struct.pack(
-        "!" + ip4_address_data_bytes_length_string + "B", *ip4_address_data_bytes
-    )
+    ip4_address_network = struct.pack("!" + ip4_address_data_bytes_length_string + "B", *ip4_address_data_bytes)
 
     # returns the ip4 address network
     return ip4_address_network
@@ -413,9 +407,7 @@ def ip6_address_from_network(ip6_address_network):
     ip6_address_data_shorts = struct.unpack("!8H", ip6_address_network)
 
     # creates and joins the data string to create the address
-    ip6_address_data_string = [
-        "%x" % value for value in ip6_address_data_shorts if value > 0
-    ]
+    ip6_address_data_string = ["%x" % value for value in ip6_address_data_shorts if value > 0]
     ip6_address = ":".join(ip6_address_data_string)
 
     # returns the ip6 address
@@ -436,15 +428,11 @@ def ip6_address_to_network(ip6_address):
 
     # converts the ip6 address to a series of shorts
     ip6_address_data_string = ip6_address.split(":")
-    ip6_address_data_shorts = [
-        int(value or "", 16) for value in ip6_address_data_string
-    ]
+    ip6_address_data_shorts = [int(value or "", 16) for value in ip6_address_data_string]
 
     # packs the series of shorts into a network signed short stream
     ip6_address_data_shorts_length = len(ip6_address_data_shorts)
-    ip6_address_network = struct.pack(
-        "!" + ip6_address_data_shorts_length + "H", *ip6_address_data_shorts
-    )
+    ip6_address_network = struct.pack("!" + ip6_address_data_shorts_length + "H", *ip6_address_data_shorts)
 
     # returns the ip6 address network
     return ip6_address_network

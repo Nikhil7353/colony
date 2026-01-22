@@ -393,11 +393,7 @@ def md5_crypt(password, salt, magic=DEFAULT_MD5_CRYPT_MAGIC):
 
     # retrieves the various values from a pre-defined set of position
     for a, b, c in ((0, 6, 12), (1, 7, 13), (2, 8, 14), (3, 9, 15), (4, 10, 5)):
-        value = (
-            legacy.ord(hash_digest[a]) << 16
-            | legacy.ord(hash_digest[b]) << 8
-            | legacy.ord(hash_digest[c])
-        )
+        value = legacy.ord(hash_digest[a]) << 16 | legacy.ord(hash_digest[b]) << 8 | legacy.ord(hash_digest[c])
 
         # iterates over the range of four
         for _index in range(4):

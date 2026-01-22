@@ -94,11 +94,7 @@ def encode_two_complement_string(long_value):
         # the previous one
         if new_number_nibbles < number_nibbles:
             # puts the sign bits
-            long_value_hexadecimal = (
-                "0x"
-                + "0" * (number_nibbles - new_number_nibbles)
-                + long_value_hexadecimal[2:]
-            )
+            long_value_hexadecimal = "0x" + "0" * (number_nibbles - new_number_nibbles) + long_value_hexadecimal[2:]
         # in case it's a positive number
         if int(long_value_hexadecimal[2], 16) < 8:
             # no need a byte of sign bits

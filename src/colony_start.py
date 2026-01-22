@@ -101,10 +101,7 @@ def print_information():
     used when running the system.
     """
 
-    print(
-        BRANDING_TEXT
-        % (colony.VERSION, colony.RELEASE, colony.BUILD, colony.RELEASE_DATE)
-    )
+    print(BRANDING_TEXT % (colony.VERSION, colony.RELEASE, colony.BUILD, colony.RELEASE_DATE))
     print(VERSION_PRE_TEXT + sys.version)
     print(HELP_TEXT)
 
@@ -295,8 +292,8 @@ def execute(cwd=None, force_exit=True):
             sys.argv[1:],
             "hnv:l:r:c:o:f:d:m:g:i:t:p:",
             [
-                "help" "noloop",
-                "level=" "layout_mode=",
+                "helpnoloop",
+                "level=layout_mode=",
                 "run_mode=",
                 "container=",
                 "daemon_pid=",
@@ -536,9 +533,7 @@ def parse_configuration(
     # retrieves the configuration module name and the configuration
     # module extension by splitting the configuration base path into
     # base name and extension and then imports the referring module
-    config_module, _configuration_module_extension = os.path.splitext(
-        config_file_base_path
-    )
+    config_module, _configuration_module_extension = os.path.splitext(config_file_base_path)
     try:
         config = __import__(config_module)
     except ImportError:
@@ -623,17 +618,13 @@ def parse_configuration(
     # retrieves the extra library path as the dereferenced values
     # from the colony configuration library path list and adds the
     # extra library path to the library path
-    extra_library_path = convert_reference_path_list(
-        cwd, manager_path, current_prefix_paths, library_path_list
-    )
+    extra_library_path = convert_reference_path_list(cwd, manager_path, current_prefix_paths, library_path_list)
     library_path += extra_library_path
 
     # retrieves the extra meta path as the dereferenced values
     # from the colony configuration meta path list and adds the
     # extra meta path to the meta path
-    extra_meta_path = convert_reference_path_list(
-        cwd, manager_path, current_prefix_paths, meta_path_list
-    )
+    extra_meta_path = convert_reference_path_list(cwd, manager_path, current_prefix_paths, meta_path_list)
     meta_path += extra_meta_path
 
     # loads the plugin paths file path and adds the plugin paths
@@ -644,9 +635,7 @@ def parse_configuration(
     # retrieves the extra plugin path as the dereferenced values
     # from the colony configuration plugin path list and adds the
     # extra plugin path to the plugin path
-    extra_plugin_path = convert_reference_path_list(
-        cwd, manager_path, current_prefix_paths, plugin_path_list
-    )
+    extra_plugin_path = convert_reference_path_list(cwd, manager_path, current_prefix_paths, plugin_path_list)
     plugin_path += extra_plugin_path
 
     return (
@@ -664,9 +653,7 @@ def parse_configuration(
     )
 
 
-def convert_reference_path_list(
-    cwd, manager_path, current_prefix_paths, reference_path_list
-):
+def convert_reference_path_list(cwd, manager_path, current_prefix_paths, reference_path_list):
     """
     Converts the given list of reference paths. The reference
     paths include references of type %reference_name% to include
@@ -720,9 +707,7 @@ def convert_reference_path_list(
             # "wildcard" references in the paths
             current_prefix_path_name = "%" + current_prefix_path + "_prefix_path%"
             current_prefix_path_value = current_prefix_paths[current_prefix_path]
-            dereferenced_path = dereferenced_path.replace(
-                current_prefix_path_name, current_prefix_path_value
-            )
+            dereferenced_path = dereferenced_path.replace(current_prefix_path_name, current_prefix_path_value)
 
         # runs the glob based resolver to resolver the "wildcard" patterns
         # that may be present in the path, this operation should return

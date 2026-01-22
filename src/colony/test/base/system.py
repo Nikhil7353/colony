@@ -54,9 +54,7 @@ class PluginManagerTest(colony.ColonyTestCase):
             colony.ColonyException,
             lambda: plugin_manager.resolve_string_value("%plugin_path:pt.hive.main%"),
         )
-        self.assertRaises(
-            AttributeError, lambda: plugin_manager.resolve_string_value("%unset%")
-        )
+        self.assertRaises(AttributeError, lambda: plugin_manager.resolve_string_value("%unset%"))
 
         plugin_manager.get_plugin_path_by_id = mock.MagicMock(return_value="hello_path")
         self.assertEqual(

@@ -69,9 +69,7 @@ LEVELS = ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")
 most sever this sequence may be used to find all the
 levels that are considered more sever that a level """
 
-LEVEL_ALIAS = dict(
-    DEBU="DEBUG", WARN="WARNING", INF="INFO", ERR="ERROR", CRIT="CRITICAL"
-)
+LEVEL_ALIAS = dict(DEBU="DEBUG", WARN="WARNING", INF="INFO", ERR="ERROR", CRIT="CRITICAL")
 """ Map defining a series of alias that may be used latter
 for proper debug level resolution, standard compliant """
 
@@ -252,7 +250,6 @@ class MemoryHandler(logging.Handler):
 
 
 class LogstashHandler(logging.Handler):
-
     def __init__(
         self,
         level=logging.NOTSET,

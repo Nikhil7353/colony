@@ -72,9 +72,7 @@ class PathTest(colony.ColonyTestCase):
                 content = file.read()
             self.assertEqual(content, existing_content)
 
-            deep_target_path = os.path.join(
-                temp_dir, "deep", "nested", "path", "file.txt"
-            )
+            deep_target_path = os.path.join(temp_dir, "deep", "nested", "path", "file.txt")
             colony.ensure_file_path(deep_target_path, default_file_path)
 
             self.assertTrue(os.path.exists(deep_target_path))

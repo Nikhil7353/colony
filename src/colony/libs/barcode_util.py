@@ -115,9 +115,7 @@ def encode_2_of_5(string_value):
 
         # interleaves both the first and second encoded
         # digits and then writes the result to the encoded buffer
-        interleaved_digits_string = _interleave_digits(
-            first_digit_encoded, second_digit_encoded
-        )
+        interleaved_digits_string = _interleave_digits(first_digit_encoded, second_digit_encoded)
         encoded_buffer.write(interleaved_digits_string)
 
         # increments the index counter in two values
@@ -313,9 +311,7 @@ def _encode_code_set_a(string_value):
         # "calculates" the appropriate code 128 code set a
         # for the value and appends it to the character values
         character_code_128_value = (
-            character_ascii_value > 32
-            and character_ascii_value - 32
-            or character_ascii_value + 64
+            character_ascii_value > 32 and character_ascii_value - 32 or character_ascii_value + 64
         )
         character_values.append(character_code_128_value)
 

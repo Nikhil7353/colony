@@ -89,9 +89,7 @@ class ConfigTest(unittest.TestCase):
         if mock == None:
             self.skipTest("Skipping test: mock unavailable")
 
-        mock_data = mock.mock_open(
-            read_data=b"#This is a comment\nAGE=10\nNAME=colony\n"
-        )
+        mock_data = mock.mock_open(read_data=b"#This is a comment\nAGE=10\nNAME=colony\n")
 
         with mock.patch("os.path.exists", return_value=True), mock.patch(
             "builtins.open", mock_data, create=True

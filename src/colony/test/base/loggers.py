@@ -53,18 +53,14 @@ class LoggersTest(colony.ColonyTestCase):
         self.assertEqual(len(latest), 0)
         self.assertEqual(latest, [])
 
-        record = logging.makeLogRecord(
-            dict(msg="hello world", levelname=logging.getLevelName(logging.INFO))
-        )
+        record = logging.makeLogRecord(dict(msg="hello world", levelname=logging.getLevelName(logging.INFO)))
         memory_handler.emit(record)
         latest = memory_handler.get_latest()
 
         self.assertEqual(len(latest), 1)
         self.assertEqual(latest, ["hello world"])
 
-        record = logging.makeLogRecord(
-            dict(msg="hello world 2", levelname=logging.getLevelName(logging.ERROR))
-        )
+        record = logging.makeLogRecord(dict(msg="hello world 2", levelname=logging.getLevelName(logging.ERROR)))
         memory_handler.emit(record)
         latest = memory_handler.get_latest()
 
@@ -100,13 +96,9 @@ class LoggersTest(colony.ColonyTestCase):
         self.assertEqual(len(latest), 0)
         self.assertEqual(latest, [])
 
-        record = logging.makeLogRecord(
-            dict(msg="hello world", levelname=logging.getLevelName(logging.INFO))
-        )
+        record = logging.makeLogRecord(dict(msg="hello world", levelname=logging.getLevelName(logging.INFO)))
         memory_handler.emit(record)
-        record = logging.makeLogRecord(
-            dict(msg="hello world 2", levelname=logging.getLevelName(logging.INFO))
-        )
+        record = logging.makeLogRecord(dict(msg="hello world 2", levelname=logging.getLevelName(logging.INFO)))
         memory_handler.emit(record)
 
         file = colony.legacy.BytesIO()
@@ -136,11 +128,7 @@ class LoggersTest(colony.ColonyTestCase):
 
         mock_api_client = mock.Mock()
         mock_api_client_messages = []
-        mock_api_client.log_bulk = (
-            lambda messages, tag, raise_e="default": mock_api_client_messages.extend(
-                messages
-            )
-        )
+        mock_api_client.log_bulk = lambda messages, tag, raise_e="default": mock_api_client_messages.extend(messages)
 
         logstash_handler = colony.LogstashHandler(api=mock_api_client)
         formatter = logging.Formatter("%(levelname)s - %(message)s")
@@ -148,14 +136,10 @@ class LoggersTest(colony.ColonyTestCase):
 
         self.assertEqual(len(logstash_handler.messages), 0)
 
-        record = logging.makeLogRecord(
-            dict(msg="hello world", levelname=logging.getLevelName(logging.INFO))
-        )
+        record = logging.makeLogRecord(dict(msg="hello world", levelname=logging.getLevelName(logging.INFO)))
         logstash_handler.emit(record)
         self.assertEqual(len(logstash_handler.messages), 1)
-        self.assertEqual(
-            logstash_handler.messages[0]["message_fmt"], "INFO - hello world"
-        )
+        self.assertEqual(logstash_handler.messages[0]["message_fmt"], "INFO - hello world")
         self.assertEqual(logstash_handler.messages[0]["message"], "hello world")
         self.assertEqual(logstash_handler.messages[0]["level"], "INFO")
         self.assertEqual(logstash_handler.messages[0]["logger"], None)
@@ -164,22 +148,16 @@ class LoggersTest(colony.ColonyTestCase):
         logstash_handler.flush()
         self.assertEqual(len(logstash_handler.messages), 0)
         self.assertEqual(len(mock_api_client_messages), 1)
-        self.assertEqual(
-            mock_api_client_messages[0]["message_fmt"], "INFO - hello world"
-        )
+        self.assertEqual(mock_api_client_messages[0]["message_fmt"], "INFO - hello world")
         self.assertEqual(mock_api_client_messages[0]["message"], "hello world")
         self.assertEqual(mock_api_client_messages[0]["level"], "INFO")
         self.assertEqual(mock_api_client_messages[0]["logger"], None)
         self.assertEqual(mock_api_client_messages[0]["path"], "")
 
-        record = logging.makeLogRecord(
-            dict(msg="hello world 2", levelname=logging.getLevelName(logging.INFO))
-        )
+        record = logging.makeLogRecord(dict(msg="hello world 2", levelname=logging.getLevelName(logging.INFO)))
         logstash_handler.emit(record)
         self.assertEqual(len(logstash_handler.messages), 1)
-        self.assertEqual(
-            logstash_handler.messages[0]["message_fmt"], "INFO - hello world 2"
-        )
+        self.assertEqual(logstash_handler.messages[0]["message_fmt"], "INFO - hello world 2")
         self.assertEqual(logstash_handler.messages[0]["message"], "hello world 2")
         self.assertEqual(logstash_handler.messages[0]["level"], "INFO")
         self.assertEqual(logstash_handler.messages[0]["logger"], None)

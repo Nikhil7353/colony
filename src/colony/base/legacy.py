@@ -553,9 +553,7 @@ def to_timestamp(date_time):
 
 def to_datetime(timestamp):
     if PYTHON_33:
-        return datetime.datetime.fromtimestamp(
-            timestamp, datetime.timezone.utc
-        ).replace(tzinfo=None)
+        return datetime.datetime.fromtimestamp(timestamp, datetime.timezone.utc).replace(tzinfo=None)
     else:
         return datetime.datetime.utcfromtimestamp(timestamp)
 

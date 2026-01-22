@@ -62,11 +62,7 @@ def object_attribute_names(instance):
 
     # filters the attribute names based on the type and value
     # of them (non printable attributes are filtered out)
-    valid_attribute_names = [
-        key
-        for key, value in __object_items(instance)
-        if isinstance(value, VALID_ATTRIBUTE_TYPES)
-    ]
+    valid_attribute_names = [key for key, value in __object_items(instance) if isinstance(value, VALID_ATTRIBUTE_TYPES)]
 
     # returns the valid attribute names (ready for print)
     return valid_attribute_names
@@ -102,10 +98,7 @@ def object_attribute_values(instance, valid_attribute_names=None, strict=True):
     # retrieves the valid attribute names in order
     # to use them to retrieve the valid attribute values
     valid_attribute_names = valid_attribute_names or object_attribute_names(instance)
-    valid_attribute_values = [
-        __object_get_attr(instance, value, strict=strict)
-        for value in valid_attribute_names
-    ]
+    valid_attribute_values = [__object_get_attr(instance, value, strict=strict) for value in valid_attribute_names]
 
     # returns the valid attribute values (ready for print)
     return valid_attribute_values
@@ -263,11 +256,7 @@ def __object_flatten_to_one(base_instance, instance, flattening_map):
         # tries to retrieves the instance value
         # sets the value to invalid in case there
         # is no such instance value (attribute)
-        instance_value = (
-            __object_has_attr(instance, key)
-            and __object_get_attr(instance, key)
-            or None
-        )
+        instance_value = __object_has_attr(instance, key) and __object_get_attr(instance, key) or None
 
         # in case the instance value is not set, must
         # continue the loop (skips the current iteration)
@@ -312,11 +301,7 @@ def __object_flatten_to_one_map(base_map, instance, flattening_map):
         # tries to retrieves the instance value
         # sets the value to invalid in case there
         # is no such instance value (attribute)
-        instance_value = (
-            __object_has_attr(instance, key)
-            and __object_get_attr(instance, key)
-            or None
-        )
+        instance_value = __object_has_attr(instance, key) and __object_get_attr(instance, key) or None
 
         # in case the instance value is not set
         if instance_value == None:
@@ -385,16 +370,12 @@ def __object_flatten_to_many(instances_list, flattening_map):
 
             # flattens the to many attribute (list) and retrieves the list
             # of to many instances list
-            to_many_intances_list = __object_flatten_to_many(
-                to_many_attribute, _flattening_map
-            )
+            to_many_intances_list = __object_flatten_to_many(to_many_attribute, _flattening_map)
 
             # calculates the new bucket (list) based on the product
             # of the bucket against the to many instances list, this product
             # is made with the "help" of the new flattening map
-            bucket = __object_flatten_product(
-                bucket, to_many_intances_list, _flattening_map
-            )
+            bucket = __object_flatten_product(bucket, to_many_intances_list, _flattening_map)
 
         # extends the new instances list with the bucket for
         # the current instance

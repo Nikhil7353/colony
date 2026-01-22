@@ -91,10 +91,7 @@ class ColonyTestCase(unittest.TestCase):
 
         # raises a failure exception as the type of the value
         # is not the one expected by the assert operation
-        raise self.failureException(
-            "value is of type %s instead of expected type %s"
-            % (value_type, expected_type)
-        )
+        raise self.failureException("value is of type %s instead of expected type %s" % (value_type, expected_type))
 
     def assert_raises(self, expected_exception, function, *args, **kwargs):
         """
@@ -120,9 +117,7 @@ class ColonyTestCase(unittest.TestCase):
             # oriented and then uses the string mode flag to find out the correct
             # expected exception name (for exception string description)
             string_mode = True if type(expected_exception) in legacy.STRINGS else False
-            expected_exception_name = (
-                expected_exception if string_mode else expected_exception.__name__
-            )
+            expected_exception_name = expected_exception if string_mode else expected_exception.__name__
 
             # retrieves the exception class and then uses it
             # to retrieve the exception name
@@ -143,9 +138,7 @@ class ColonyTestCase(unittest.TestCase):
         else:
             # raises a failure exception in case no exception was raised, this is
             # the expected behavior as an exception was expected in situation
-            raise self.failureException(
-                "%s exception was not raised" % expected_exception
-            )
+            raise self.failureException("%s exception was not raised" % expected_exception)
 
     def assert_valid_xml(self, xml_data):
         """

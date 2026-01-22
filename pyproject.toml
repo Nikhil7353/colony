@@ -31,4 +31,4 @@ select = [
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
-line-ending = "auto"
+line-ending = "cr-lf"  # Match repository standard (AGENTS.md)

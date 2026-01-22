@@ -103,9 +103,7 @@ def to_underscore(string_value):
     string_value_underscore = UNDERSCORE_FIRST_REGEX.sub(r"\1_\2", string_value)
 
     # converts the string value underscore into the next underscore notation
-    string_value_underscore = UNDERSCORE_SECOND_REGEX.sub(
-        r"\1_\2", string_value_underscore
-    )
+    string_value_underscore = UNDERSCORE_SECOND_REGEX.sub(r"\1_\2", string_value_underscore)
 
     # converts the string value in underscore notation to lowercase
     string_value_underscore = string_value_underscore.lower()
@@ -132,9 +130,7 @@ def to_camelcase(string_value):
     string_value_tokens = string_value.split("_")
 
     # creates a list with all the string value tokens capitalized
-    string_value_tokens_capitalized = [
-        value.capitalize() for value in string_value_tokens
-    ]
+    string_value_tokens_capitalized = [value.capitalize() for value in string_value_tokens]
 
     # joins the various string value tokens
     # creating the string value camel case
@@ -175,9 +171,7 @@ def capitalize_all(string_value):
     string_value_tokens = string_value.split()
 
     # creates a list with all the string value tokens capitalized
-    string_value_tokens_capitalized = [
-        value.capitalize() for value in string_value_tokens
-    ]
+    string_value_tokens_capitalized = [value.capitalize() for value in string_value_tokens]
 
     # joins the various string value tokens
     # creating the string value capitalized
@@ -207,12 +201,8 @@ def join(first_value, second_value, join_value="/"):
 
     # removes the join value from both the first and second value
     # to avoid duplicate values in the joining
-    first_value = (
-        not first_value.endswith(join_value) and first_value or first_value[:-1]
-    )
-    second_value = (
-        not second_value.startswith(join_value) and second_value or second_value[1:]
-    )
+    first_value = not first_value.endswith(join_value) and first_value or first_value[:-1]
+    second_value = not second_value.startswith(join_value) and second_value or second_value[1:]
 
     # joins the first and second values using the join
     # value from the join point

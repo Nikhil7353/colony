@@ -105,9 +105,7 @@ SEPARATORS = {
 """ The separators map """
 
 
-def format_seconds_smart(
-    seconds, mode=SIMPLE_VALUE, includes=DEFAULT_INCLUDES, minimize=MINIMIZE_MULTIPLE
-):
+def format_seconds_smart(seconds, mode=SIMPLE_VALUE, includes=DEFAULT_INCLUDES, minimize=MINIMIZE_MULTIPLE):
     """
     Formats the given seconds according to the given
     mode, including minimization support.
@@ -282,37 +280,27 @@ def _process_includes(seconds, includes, minimize_mode):
     # represented
     if seconds < 60:
         # sets the valid includes as the seconds
-        valid_includes = (
-            minimize_mode == MINIMIZE_MULTIPLE and (SECOND_VALUE,) or (SECOND_VALUE,)
-        )
+        valid_includes = minimize_mode == MINIMIZE_MULTIPLE and (SECOND_VALUE,) or (SECOND_VALUE,)
     # in case there are only seconds and minutes
     # to be represented
     elif seconds < 3600:
         # sets the valid includes as the minutes
         # and the seconds
-        valid_includes = (
-            minimize_mode == MINIMIZE_MULTIPLE
-            and (MINUTE_VALUE, SECOND_VALUE)
-            or (MINUTE_VALUE,)
-        )
+        valid_includes = minimize_mode == MINIMIZE_MULTIPLE and (MINUTE_VALUE, SECOND_VALUE) or (MINUTE_VALUE,)
     # in case there are seconds, minutes, and
     # hours to be represented
     elif seconds < 86400:
         # sets the valid includes as the hours, the minutes
         # and the seconds
         valid_includes = (
-            minimize_mode == MINIMIZE_MULTIPLE
-            and (HOUR_VALUE, MINUTE_VALUE, SECOND_VALUE)
-            or (HOUR_VALUE,)
+            minimize_mode == MINIMIZE_MULTIPLE and (HOUR_VALUE, MINUTE_VALUE, SECOND_VALUE) or (HOUR_VALUE,)
         )
     # in case everything should be represented
     else:
         # sets the valid includes as the days, the hours, the minutes
         # and the seconds
         valid_includes = (
-            minimize_mode == MINIMIZE_MULTIPLE
-            and (DAY_VALUE, HOUR_VALUE, MINUTE_VALUE, SECOND_VALUE)
-            or (DAY_VALUE,)
+            minimize_mode == MINIMIZE_MULTIPLE and (DAY_VALUE, HOUR_VALUE, MINUTE_VALUE, SECOND_VALUE) or (DAY_VALUE,)
         )
 
     # intersects the (original) list of includes and the valid includes

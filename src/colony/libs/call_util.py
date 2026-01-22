@@ -39,9 +39,7 @@ DEFAULT_RETRY_SLEEP = 1
 """ The default sleep time between retries """
 
 
-def execute_retries(
-    callable, number_retries=DEFAULT_NUMBER_RETRIES, retry_sleep=DEFAULT_RETRY_SLEEP
-):
+def execute_retries(callable, number_retries=DEFAULT_NUMBER_RETRIES, retry_sleep=DEFAULT_RETRY_SLEEP):
     """
     Executes the given callable retrying the call in case an exception occurs.
     The number of retries and the time between retries is configurable.

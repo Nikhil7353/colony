@@ -180,9 +180,7 @@ DEFAULT_CONFIG_PATH = "config/python/devel.py"
 used in case no path is specified using the environment
 variable bases strategy """
 
-SPECIAL_VALUE_REGEX_VALUE = (
-    r"%(?P<command>[a-zA-Z0-0_]*)(:(?P<arguments>[a-zA-Z0-9_.,]*))?%"
-)
+SPECIAL_VALUE_REGEX_VALUE = r"%(?P<command>[a-zA-Z0-0_]*)(:(?P<arguments>[a-zA-Z0-9_.,]*))?%"
 """ The special value regex value """
 
 SPECIAL_VALUE_REGEX = re.compile(SPECIAL_VALUE_REGEX_VALUE)
@@ -453,9 +451,7 @@ class Plugin(object):
         self.timestamp = time.time()
 
         # generates the load plugin event
-        self.manager.generate_event(
-            "plugin_manager.plugin.load_plugin", [self.id, self.version, self]
-        )
+        self.manager.generate_event("plugin_manager.plugin.load_plugin", [self.id, self.version, self])
 
         # prints an info message
         self.info("Loading plugin '%s' v%s" % (self.name, self.version))
@@ -475,9 +471,7 @@ class Plugin(object):
         self.error_state = False
 
         # generates the lazy load plugin event
-        self.manager.generate_event(
-            "plugin_manager.plugin.lazy_load_plugin", [self.id, self.version, self]
-        )
+        self.manager.generate_event("plugin_manager.plugin.lazy_load_plugin", [self.id, self.version, self])
 
         # prints a debug message
         self.debug("Lazy loading plugin '%s' v%s" % (self.name, self.version))
@@ -488,13 +482,9 @@ class Plugin(object):
         """
 
         # generates the end load plugin event
-        self.manager.generate_event(
-            "plugin_manager.plugin.end_load_plugin", [self.id, self.version, self]
-        )
+        self.manager.generate_event("plugin_manager.plugin.end_load_plugin", [self.id, self.version, self])
 
-        self.debug(
-            "Loading process for plugin '%s' v%s completed" % (self.name, self.version)
-        )
+        self.debug("Loading process for plugin '%s' v%s completed" % (self.name, self.version))
 
     def unload_plugin(self):
         """
@@ -523,9 +513,7 @@ class Plugin(object):
         self.allowed_loaded_capability = []
 
         # generates the load plugin event
-        self.manager.generate_event(
-            "plugin_manager.plugin.unload_plugin", [self.id, self.version, self]
-        )
+        self.manager.generate_event("plugin_manager.plugin.unload_plugin", [self.id, self.version, self])
 
         # prints an info message
         self.info("Unloading plugin '%s' v%s" % (self.name, self.version))
@@ -539,15 +527,10 @@ class Plugin(object):
         self.error_state = False
 
         # generates the load plugin event
-        self.manager.generate_event(
-            "plugin_manager.plugin.end_unload_plugin", [self.id, self.version, self]
-        )
+        self.manager.generate_event("plugin_manager.plugin.end_unload_plugin", [self.id, self.version, self])
 
         # prints an info message
-        self.info(
-            "Unloading process for plugin '%s' v%s completed"
-            % (self.name, self.version)
-        )
+        self.info("Unloading process for plugin '%s' v%s completed" % (self.name, self.version))
 
     def load_allowed(self, plugin, capability):
         """
@@ -595,10 +578,7 @@ class Plugin(object):
 
         # prints a debug message about the loading of the plugin inside
         # the current plugin (for diagnostic purposes)
-        self.debug(
-            "Loading plugin '%s' v%s in '%s' v%s"
-            % (plugin.name, plugin.version, self.name, self.version)
-        )
+        self.debug("Loading plugin '%s' v%s in '%s' v%s" % (plugin.name, plugin.version, self.name, self.version))
 
     def unload_allowed(self, plugin, capability):
         """
@@ -641,10 +621,7 @@ class Plugin(object):
 
         # prints an info message about the unloading of the plugin
         # so that the developer is notified about the operation
-        self.info(
-            "Unloading plugin '%s' v%s in '%s' v%s"
-            % (plugin.name, plugin.version, self.name, self.version)
-        )
+        self.info("Unloading plugin '%s' v%s in '%s' v%s" % (plugin.name, plugin.version, self.name, self.version))
 
     def dependency_injected(self, plugin):
         """
@@ -663,8 +640,7 @@ class Plugin(object):
         self.dependencies_loaded.append(plugin)
         setattr(self, plugin.short_name + "_plugin", plugin)
         self.debug(
-            "Plugin dependency '%s' v%s injected in '%s' v%s"
-            % (plugin.name, plugin.version, self.name, self.version)
+            "Plugin dependency '%s' v%s injected in '%s' v%s" % (plugin.name, plugin.version, self.name, self.version)
         )
 
     def init_complete(self):
@@ -673,8 +649,7 @@ class Plugin(object):
         """
 
         self.debug(
-            "Plugin '%s' v%s notified about the end of the plugin manager init process"
-            % (self.name, self.version)
+            "Plugin '%s' v%s notified about the end of the plugin manager init process" % (self.name, self.version)
         )
 
     def register_all_handled_events_plugin(self, plugin):
@@ -712,9 +687,7 @@ class Plugin(object):
         """
 
         event_names_handled = [
-            event_name
-            for event_name in self.events_handled
-            if is_event_or_sub_event("plugin_manager", event_name)
+            event_name for event_name in self.events_handled if is_event_or_sub_event("plugin_manager", event_name)
         ]
 
         for event_name_handled in event_names_handled:
@@ -725,9 +698,7 @@ class Plugin(object):
         Unregisters all the plugin manager events in self.
         """
 
-        event_plugin_manager_registered_loaded_list = copy.copy(
-            self.event_plugin_manager_registered_loaded_list
-        )
+        event_plugin_manager_registered_loaded_list = copy.copy(self.event_plugin_manager_registered_loaded_list)
 
         for event_name in event_plugin_manager_registered_loaded_list:
             self.unregister_for_plugin_manager_event(event_name)
@@ -889,9 +860,7 @@ class Plugin(object):
         event_names_list = legacy.keys(self.event_plugins_fired_loaded_map)
 
         # retrieves all the events and super events that match the generated event
-        events_or_super_events_list = get_all_events_or_super_events_in_list(
-            event_name, event_names_list
-        )
+        events_or_super_events_list = get_all_events_or_super_events_in_list(event_name, event_names_list)
 
         # iterates over all the events and super events for notification
         for event_or_super_event in events_or_super_events_list:
@@ -899,9 +868,7 @@ class Plugin(object):
                 continue
 
             # iterates over all the plugins registered for notification
-            for event_plugin_loaded in self.event_plugins_fired_loaded_map[
-                event_or_super_event
-            ]:
+            for event_plugin_loaded in self.event_plugins_fired_loaded_map[event_or_super_event]:
                 # prints a debug message
                 self.debug(
                     "Notifying '%s' v%s about event '%s' generated in '%s' v%s"
@@ -932,9 +899,7 @@ class Plugin(object):
             return
 
         # prints a debug message
-        self.debug(
-            "Event '%s' generated in '%s' v%s" % (event_name, self.name, self.version)
-        )
+        self.debug("Event '%s' generated in '%s' v%s" % (event_name, self.name, self.version))
 
         # notifies the event handlers
         self.notify_handlers(event_name, event_args)
@@ -950,9 +915,7 @@ class Plugin(object):
         """
 
         # prints a debug message
-        self.debug(
-            "Event '%s' caught in '%s' v%s" % (event_name, self.name, self.version)
-        )
+        self.debug("Event '%s' caught in '%s' v%s" % (event_name, self.name, self.version))
 
     def reload_main_modules(self):
         """
@@ -1030,10 +993,7 @@ class Plugin(object):
         :param property: The property name to set.
         """
 
-        self.info(
-            "Setting configuration property '%s' in '%s' v%s"
-            % (property_name, self.name, self.version)
-        )
+        self.info("Setting configuration property '%s' in '%s' v%s" % (property_name, self.name, self.version))
 
         self.configuration_map[property_name] = property
 
@@ -1045,10 +1005,7 @@ class Plugin(object):
         :param property_name: The property name to unset the property.
         """
 
-        self.info(
-            "Unsetting configuration property '%s' from '%s' v%s"
-            % (property_name, self.name, self.version)
-        )
+        self.info("Unsetting configuration property '%s' from '%s' v%s" % (property_name, self.name, self.version))
 
         del self.configuration_map[property_name]
 
@@ -1210,10 +1167,7 @@ class Plugin(object):
         """
 
         # prints and info message
-        self.info(
-            "Exception '%s' generated in '%s' v%s"
-            % (str(exception), self.name, self.version)
-        )
+        self.info("Exception '%s' generated in '%s' v%s" % (str(exception), self.name, self.version))
 
         # unloads the plugin
         self.manager.unload_plugin(self.id)
@@ -1365,9 +1319,7 @@ class Plugin(object):
         # in case the traceback list is valid formats it
         # correctly otherwise falls-back to the empty tuple
         # as the default formated traceback (no traceback)
-        formated_traceback = (
-            traceback.format_tb(traceback_list) if traceback_list else ()
-        )
+        formated_traceback = traceback.format_tb(traceback_list) if traceback_list else ()
 
         # iterates over the traceback lines to log
         # them into the current logger
@@ -1999,9 +1951,7 @@ class PluginManager(object):
         # retrieves the configuration module name and the configuration
         # module extension by splitting the configuration base path into
         # base name and extension and then imports the referring module
-        configuration_module_name, _configuration_module_extension = os.path.splitext(
-            config_file_base_path
-        )
+        configuration_module_name, _configuration_module_extension = os.path.splitext(config_file_base_path)
         try:
             colony_configuration = __import__(configuration_module_name)
         except ImportError:
@@ -2018,9 +1968,7 @@ class PluginManager(object):
         # iterates over each of the plugin paths to resolve them using
         # the glob based approach then "takes" the final list into a
         # final step of absolute path normalization
-        for plugin_path in (
-            colony_configuration.plugin_path_list if default_plugins else []
-        ):
+        for plugin_path in colony_configuration.plugin_path_list if default_plugins else []:
             plugin_paths.append(os.path.join(manager_path, plugin_path))
         for plugin_path in plugin_paths:
             _plugin_paths += glob.glob(plugin_path)
@@ -2083,9 +2031,7 @@ class PluginManager(object):
         # by the call to this method, note that the diffusion scope id should
         # be unique according to the plugin manager specification
         diffusion_scope_id = self.generate_diffusion_scope_id()
-        plugin_instance = self._create_plugin(
-            plugin_id, plugin_version, diffusion_scope_id
-        )
+        plugin_instance = self._create_plugin(plugin_id, plugin_version, diffusion_scope_id)
         return plugin_instance
 
     def _create_plugin(self, plugin_id, plugin_version, diffusion_scope_id):
@@ -2106,9 +2052,7 @@ class PluginManager(object):
         # in case the plugin id does not exist in the plugin classes map
         if not plugin_id in self.plugin_classes_map:
             # raises the plugin class not available exception
-            raise exceptions.PluginClassNotAvailable(
-                "invalid plugin '%s' v%s" % (plugin_id, plugin_version)
-            )
+            raise exceptions.PluginClassNotAvailable("invalid plugin '%s' v%s" % (plugin_id, plugin_version))
 
         # retrieves the plugin class
         plugin_class = self.plugin_classes_map[plugin_id]
@@ -2117,9 +2061,7 @@ class PluginManager(object):
         # the defined version comparison)
         if not colony.libs.version_cmp(plugin_class.version, plugin_version):
             # raises the plugin class not available exception
-            raise exceptions.PluginClassNotAvailable(
-                "invalid plugin '%s' v%s" % (plugin_id, plugin_version)
-            )
+            raise exceptions.PluginClassNotAvailable("invalid plugin '%s' v%s" % (plugin_id, plugin_version))
 
         # retrieves the generated replica id
         replica_id = self.generate_replica_id()
@@ -2164,9 +2106,7 @@ class PluginManager(object):
         self.plugin_dirs_map[plugin_instance_id] = plugin_dir
 
         # sets the plugin instance in the diffusion scope loaded plugins map
-        self.set_plugin_instance_diffusion_scope_loaded_plugins_map(
-            diffusion_scope_id, plugin_id, plugin_instance
-        )
+        self.set_plugin_instance_diffusion_scope_loaded_plugins_map(diffusion_scope_id, plugin_id, plugin_instance)
 
         # registers the plugin capabilities in the plugin manager
         self.register_plugin_capabilities(plugin_instance)
@@ -2223,9 +2163,7 @@ class PluginManager(object):
 
         # retrieves the minimal log level between the current
         # log level and the default one (as specified)
-        minimal_log_level = (
-            DEFAULT_LOGGING_LEVEL if DEFAULT_LOGGING_LEVEL < log_level else log_level
-        )
+        minimal_log_level = DEFAULT_LOGGING_LEVEL if DEFAULT_LOGGING_LEVEL < log_level else log_level
 
         # creates the (complete) logger file name by concatenating the
         # various prefixes, name separators, run mode and file name extensions
@@ -2393,10 +2331,7 @@ class PluginManager(object):
             # of the plugin manager, this should be one of the
             # first logging messages printed by the system
             self.info("Starting plugin manager %s..." % colony.VERSION)
-            self.info(
-                "Using %s run mode and %s layout mode"
-                % (self.run_mode, self.layout_mode)
-            )
+            self.info("Using %s run mode and %s layout mode" % (self.run_mode, self.layout_mode))
 
             # sets the plugin manager timestamp, should set it with
             # the current time (to be used for uptime calculus)
@@ -2491,17 +2426,13 @@ class PluginManager(object):
         # in case the system initialization is not complete
         # raises a colony exception to notify the problem
         if not self.init_complete:
-            raise exceptions.ColonyException(
-                "trying to unload uninitialized plugin system"
-            )
+            raise exceptions.ColonyException("trying to unload uninitialized plugin system")
 
         # creates the kill system timer, to kill the system
         # if it hangs in shutdown and starts it so that the
         # system will be able to kill itself after a timeout
         if kill_timer:
-            self.kill_system_timer = threading.Timer(
-                DEFAULT_UNLOAD_SYSTEM_TIMEOUT, self._kill_system_timeout
-            )
+            self.kill_system_timer = threading.Timer(DEFAULT_UNLOAD_SYSTEM_TIMEOUT, self._kill_system_timeout)
             self.kill_system_timer.start()
 
         # iterates over all the plugin instances running the unload process
@@ -2898,10 +2829,7 @@ class PluginManager(object):
             try:
                 __import__(plugin)
             except Exception as exception:
-                self.error(
-                    "Problem importing module %s: %s"
-                    % (plugin, legacy.UNICODE(exception))
-                )
+                self.error("Problem importing module %s: %s" % (plugin, legacy.UNICODE(exception)))
 
         # prints an info message about the fact that the loading
         # operation for all of the requested plugin has finished
@@ -2981,11 +2909,7 @@ class PluginManager(object):
 
         # decodes the plugin path using the file system encoding
         # and retrieves the absolute path from this value
-        plugin_path = (
-            plugin_path.decode(file_system_encoding)
-            if legacy.is_bytes(plugin_path)
-            else plugin_path
-        )
+        plugin_path = plugin_path.decode(file_system_encoding) if legacy.is_bytes(plugin_path) else plugin_path
         absolute_plugin_path = os.path.abspath(plugin_path)
 
         # retrieves the path to the directory containing the plugin file
@@ -2995,9 +2919,7 @@ class PluginManager(object):
         # where the plugin class is defined to name the plugin, this is considered
         # to be the "safest" approach as it allows more flexibility in plugin name
         if use_path:
-            plugin_name = os.path.splitext(os.path.basename(inspect.getfile(plugin)))[
-                0
-            ][:-7]
+            plugin_name = os.path.splitext(os.path.basename(inspect.getfile(plugin)))[0][:-7]
 
         # retrieves the name of the plugin as the name of the class converted
         # to the underscore version of it and then removes the last part of
@@ -3031,9 +2953,7 @@ class PluginManager(object):
         self.plugin_dirs_map[plugin_id] = plugin_dir
 
         # sets the plugin instance in the diffusion scope loaded plugins map
-        self.set_plugin_instance_diffusion_scope_loaded_plugins_map(
-            None, plugin_id, plugin_instance
-        )
+        self.set_plugin_instance_diffusion_scope_loaded_plugins_map(None, plugin_id, plugin_instance)
 
         # registers the plugin capabilities in the plugin manager
         self.register_plugin_capabilities(plugin_instance)
@@ -3259,23 +3179,15 @@ class PluginManager(object):
         # iterates over all the plugin instance capabilities
         for capability in plugin.capabilities:
             # retrieves the capability and super capabilities list
-            capability_and_super_capabilites_list = capability_and_super_capabilites(
-                capability
-            )
+            capability_and_super_capabilites_list = capability_and_super_capabilites(capability)
 
             # retrieves the capability and super capabilities list length
-            capability_and_super_capabilites_list_length = len(
-                capability_and_super_capabilites_list
-            )
+            capability_and_super_capabilites_list_length = len(capability_and_super_capabilites_list)
 
             # iterates over the capability or super capabilities list length range
-            for capability_or_super_capability_index in range(
-                capability_and_super_capabilites_list_length
-            ):
+            for capability_or_super_capability_index in range(capability_and_super_capabilites_list_length):
                 # retrieves the capability from the capability and super capabilities list
-                capability = capability_and_super_capabilites_list[
-                    capability_or_super_capability_index
-                ]
+                capability = capability_and_super_capabilites_list[capability_or_super_capability_index]
 
                 # retrieves the sub capabilities list from the the capability and super capabilities list
                 sub_capabilities_list = capability_and_super_capabilites_list[
@@ -3301,14 +3213,9 @@ class PluginManager(object):
                 for sub_capability in sub_capabilities_list:
                     # in case the sub capability is not defined for the capability in the
                     # capabilities sub capabilities map
-                    if (
-                        not sub_capability
-                        in self.capabilities_sub_capabilities_map[capability]
-                    ):
+                    if not sub_capability in self.capabilities_sub_capabilities_map[capability]:
                         # adds the sub capability to the capabilities sub capabilities map for the capability
-                        self.capabilities_sub_capabilities_map[capability].append(
-                            sub_capability
-                        )
+                        self.capabilities_sub_capabilities_map[capability].append(sub_capability)
 
     def unregister_plugin_capabilities(self, plugin):
         """
@@ -3321,23 +3228,15 @@ class PluginManager(object):
         # iterates over all the plugin instance capabilities
         for capability in plugin.capabilities:
             # retrieves the capability and super capabilities list
-            capability_and_super_capabilites_list = capability_and_super_capabilites(
-                capability
-            )
+            capability_and_super_capabilites_list = capability_and_super_capabilites(capability)
 
             # retrieves the capability and super capabilities list length
-            capability_and_super_capabilites_list_length = len(
-                capability_and_super_capabilites_list
-            )
+            capability_and_super_capabilites_list_length = len(capability_and_super_capabilites_list)
 
             # iterates over the capability and super capabilities list length range
-            for capability_or_super_capability_index in range(
-                capability_and_super_capabilites_list_length
-            ):
+            for capability_or_super_capability_index in range(capability_and_super_capabilites_list_length):
                 # retrieves the capability from the capability and super capabilities list
-                capability = capability_and_super_capabilites_list[
-                    capability_or_super_capability_index
-                ]
+                capability = capability_and_super_capabilites_list[capability_or_super_capability_index]
 
                 # retrieves the sub capabilities list from the the capability and super capabilities list
                 sub_capabilities_list = capability_and_super_capabilites_list[
@@ -3351,9 +3250,7 @@ class PluginManager(object):
                     if plugin in self.capabilities_plugin_instances_map[capability]:
                         # removes the plugin from the capabilities plugin instances map value for
                         # the capability
-                        self.capabilities_plugin_instances_map[capability].remove(
-                            plugin
-                        )
+                        self.capabilities_plugin_instances_map[capability].remove(plugin)
 
                 # in case the capability exists in the capabilities and sub capabilities map
                 if capability in self.capabilities_sub_capabilities_map:
@@ -3361,24 +3258,12 @@ class PluginManager(object):
                     for sub_capability in sub_capabilities_list:
                         # in case the sub capability exists the in the capabilities sub capabilities map
                         # for the capability
-                        if (
-                            sub_capability
-                            in self.capabilities_sub_capabilities_map[capability]
-                        ):
+                        if sub_capability in self.capabilities_sub_capabilities_map[capability]:
                             # in case this is the only instance to be registered with the given sub capability
-                            if (
-                                len(
-                                    self.capabilities_plugin_instances_map[
-                                        sub_capability
-                                    ]
-                                )
-                                == 0
-                            ):
+                            if len(self.capabilities_plugin_instances_map[sub_capability]) == 0:
                                 # removes the sub capability from the value of capabilities sub capabilities map
                                 # for the given capability
-                                self.capabilities_sub_capabilities_map[
-                                    capability
-                                ].remove(sub_capability)
+                                self.capabilities_sub_capabilities_map[capability].remove(sub_capability)
 
     def load_plugin_manager_plugins(self):
         """
@@ -3512,9 +3397,7 @@ class PluginManager(object):
         if not mode:
             return
         if not hasattr(self, "run_" + mode):
-            raise exceptions.ColonyException(
-                "execution mode '%s' not found or invalid" % mode
-            )
+            raise exceptions.ColonyException("execution mode '%s' not found or invalid" % mode)
         self.info("Executing mode '%s'..." % mode)
         if self.exec_delay:
             self.info("Sleeping for %.2f seconds..." % self.exec_delay)
@@ -3584,18 +3467,12 @@ class PluginManager(object):
             # case raises an exception because a very serious underlying problem
             # has occurred and notification is required
             if not plugin:
-                raise exceptions.ColonyException(
-                    "problem loading a plugin for unit test execution"
-                )
+                raise exceptions.ColonyException("problem loading a plugin for unit test execution")
 
             # in case there's a valid while list defined then verifies that
             # the current plugin in iteration is valid by checking that either
             # the plugin's ID or name is present in the list
-            if (
-                self.whitetest
-                and not plugin.id in self.whitetest
-                and not plugin.name in self.whitetest
-            ):
+            if self.whitetest and not plugin.id in self.whitetest and not plugin.name in self.whitetest:
                 continue
 
             # verifies if the identifier or the short name of the plugin
@@ -3612,8 +3489,7 @@ class PluginManager(object):
             # from being loaded should be solved before unit test execution
             if not plugin.is_loaded():
                 raise exceptions.ColonyException(
-                    "failed to load '%s' v%s for unit test execution"
-                    % (plugin.id, plugin.version)
+                    "failed to load '%s' v%s for unit test execution" % (plugin.id, plugin.version)
                 )
 
             # creates a new test suite and a new loader instances that are
@@ -3673,18 +3549,14 @@ class PluginManager(object):
             return True
 
         # in case the plugin is lazy loaded
-        if (
-            plugin.loading_type == LAZY_LOADING_TYPE and not type == FULL_LOAD_TYPE
-        ) and plugin.is_lazy_loaded():
+        if (plugin.loading_type == LAZY_LOADING_TYPE and not type == FULL_LOAD_TYPE) and plugin.is_lazy_loaded():
             return True
 
         # in case the plugin does not pass the test plugin load
         if not self.test_plugin_load(plugin):
             # prints an info message about the fact that the plugin
             # is not ready to be loaded and returns in error
-            self.info(
-                "Plugin '%s' v%s not ready to be loaded" % (plugin.name, plugin.version)
-            )
+            self.info("Plugin '%s' v%s not ready to be loaded" % (plugin.name, plugin.version))
             return False
 
         if not loading_type and MAIN_TYPE in plugin.capabilities:
@@ -3724,24 +3596,16 @@ class PluginManager(object):
         """
 
         # generates the init load plugin event
-        self.generate_event(
-            "plugin_manager.init_load_plugin", [plugin.id, plugin.version, plugin]
-        )
+        self.generate_event("plugin_manager.init_load_plugin", [plugin.id, plugin.version, plugin])
 
         # in case there is an handler for the plugin loading
-        if self.exists_plugin_manager_plugin_execute_conditional(
-            "_load_plugin", [plugin, type, loading_type]
-        ):
-            return self.plugin_manager_plugin_execute_conditional(
-                "_load_plugin", [plugin, type, loading_type]
-            )
+        if self.exists_plugin_manager_plugin_execute_conditional("_load_plugin", [plugin, type, loading_type]):
+            return self.plugin_manager_plugin_execute_conditional("_load_plugin", [plugin, type, loading_type])
 
         # in case the return from the handler of the initialization
         # of the plugin load returns in error must propagate this
         # error to the caller method
-        if not self.plugin_manager_plugin_execute(
-            "init_plugin_load", [plugin, type, loading_type]
-        ):
+        if not self.plugin_manager_plugin_execute("init_plugin_load", [plugin, type, loading_type]):
             return False
 
         # in case the plugin is already loaded no need
@@ -3751,18 +3615,14 @@ class PluginManager(object):
 
         # in case the plugin is lazy loaded and lazy loading
         # is allowed in context the method should return
-        if (
-            plugin.loading_type == LAZY_LOADING_TYPE and not type == FULL_LOAD_TYPE
-        ) and plugin.is_lazy_loaded():
+        if (plugin.loading_type == LAZY_LOADING_TYPE and not type == FULL_LOAD_TYPE) and plugin.is_lazy_loaded():
             return True
 
         # in case the plugin load is not successful
         if not self.test_plugin_load(plugin):
             # prints the error message and returns the control flow
             # to the caller method in error
-            self.info(
-                "Plugin '%s' v%s not ready to be loaded" % (plugin.name, plugin.version)
-            )
+            self.info("Plugin '%s' v%s not ready to be loaded" % (plugin.name, plugin.version))
             return False
 
         # in case a type is defined, prints an information
@@ -3777,10 +3637,7 @@ class PluginManager(object):
                 plugin_thread = self.plugin_threads_map[plugin.id]
 
                 # prints a debug message
-                self.debug(
-                    "Thread restarted for plugin '%s' v%s"
-                    % (plugin.name, plugin.version)
-                )
+                self.debug("Thread restarted for plugin '%s' v%s" % (plugin.name, plugin.version))
             else:
                 # creates a new tread to run the main plugin
                 plugin_thread = PluginThread(plugin)
@@ -3795,10 +3652,7 @@ class PluginManager(object):
                 self.plugin_threads_map[plugin.id] = plugin_thread
 
                 # prints a debug message
-                self.debug(
-                    "New thread started for plugin '%s' v%s"
-                    % (plugin.name, plugin.version)
-                )
+                self.debug("New thread started for plugin '%s' v%s" % (plugin.name, plugin.version))
 
             # sets the plugin load as not completed
             plugin_thread.set_load_complete(False)
@@ -3828,10 +3682,7 @@ class PluginManager(object):
             else:
                 try:
                     # in case the loading type of the plugin is eager
-                    if (
-                        plugin.loading_type == EAGER_LOADING_TYPE
-                        or type == FULL_LOAD_TYPE
-                    ):
+                    if plugin.loading_type == EAGER_LOADING_TYPE or type == FULL_LOAD_TYPE:
                         # calls the load plugin method in the plugin (plugin bootup process)
                         plugin.load_plugin()
                     elif plugin.loading_type == LAZY_LOADING_TYPE:
@@ -3848,8 +3699,7 @@ class PluginManager(object):
             # prints the error message and returns the control flow
             # to the caller method in error
             self.error(
-                "Problem loading plugin '%s' v%s '%s'"
-                % (plugin.name, plugin.version, legacy.UNICODE(plugin.exception))
+                "Problem loading plugin '%s' v%s '%s'" % (plugin.name, plugin.version, legacy.UNICODE(plugin.exception))
             )
             return False
 
@@ -3916,9 +3766,7 @@ class PluginManager(object):
             plugin.init_complete()
 
         # generates the end load plugin event
-        self.generate_event(
-            "plugin_manager.end_load_plugin", [plugin.id, plugin.version, plugin]
-        )
+        self.generate_event("plugin_manager.end_load_plugin", [plugin.id, plugin.version, plugin])
 
         # returns true
         return True
@@ -4109,18 +3957,14 @@ class PluginManager(object):
         # verifies if the current plugin is not blacklisted for the current
         # manager and in case it's prints a message and returns in error
         if not self.test_blacklist(plugin):
-            self.info(
-                "Plugin '%s' v%s is blacklisted under the current manager"
-                % (plugin_name, plugin_version)
-            )
+            self.info("Plugin '%s' v%s is blacklisted under the current manager" % (plugin_name, plugin_version))
             return False
 
         # tests the plugin against the current thread specification
         # verifying if threads are available for the plugin
         if not self.test_threads(plugin):
             self.info(
-                "Current thread permissions is not compatible with plugin '%s' v%s"
-                % (plugin_name, plugin_version)
+                "Current thread permissions is not compatible with plugin '%s' v%s" % (plugin_name, plugin_version)
             )
             return False
 
@@ -4136,10 +3980,7 @@ class PluginManager(object):
         # tests the plugin for the availability of the dependencies checking
         # if the complete set of dependencies are available for the plugin
         if not self.test_dependencies(plugin):
-            self.info(
-                "Missing dependencies for plugin '%s' v%s"
-                % (plugin_name, plugin_version)
-            )
+            self.info("Missing dependencies for plugin '%s' v%s" % (plugin_name, plugin_version))
             return False
 
         # in case the plugin id does not exists in the loaded plugins
@@ -4234,10 +4075,7 @@ class PluginManager(object):
             # the calling method in failure
             if not capability in plugin.capabilities:
                 continue
-            self.info(
-                "Threads not allowed for plugin '%s' v%s"
-                % (plugin.name, plugin.version)
-            )
+            self.info("Threads not allowed for plugin '%s' v%s" % (plugin.name, plugin.version))
             return False
 
         # returns value as all the tests have passed with success
@@ -4362,18 +4200,14 @@ class PluginManager(object):
                 plugin_capability_allowed_string = plugin_capability_allowed
 
             # gets all the plugins of the defined capability
-            allowed_plugins = self._get_plugins_by_capability_cache(
-                plugin_capability_allowed_string
-            )
+            allowed_plugins = self._get_plugins_by_capability_cache(plugin_capability_allowed_string)
 
             # iterates over all the plugins of the defined capability
             for allowed_plugin in allowed_plugins:
                 # loads the plugin (if necessary) with allowed type
                 if self.__load_plugin(allowed_plugin, ALLOWED_TYPE):
                     # injects the allowed plugin in the plugin with the given capability
-                    self._inject_allowed(
-                        plugin, allowed_plugin, plugin_capability_allowed
-                    )
+                    self._inject_allowed(plugin, allowed_plugin, plugin_capability_allowed)
 
         # returns true
         return True
@@ -4394,11 +4228,7 @@ class PluginManager(object):
         # in case both the plugin and the allowed plugins are valid and
         # the allowed plugin is not already "allowed" in the plugin
         # for the current capability
-        if (
-            plugin
-            and allowed_plugin
-            and not (allowed_plugin, capability) in plugin.allowed_loaded_capability
-        ):
+        if plugin and allowed_plugin and not (allowed_plugin, capability) in plugin.allowed_loaded_capability:
             # retrieves the capability type
             capability_type = type(capability)
 
@@ -4410,15 +4240,10 @@ class PluginManager(object):
                 # in case the diffusion policy is same diffusion scope
                 if diffusion_policy == SAME_DIFFUSION_SCOPE:
                     # in case the allowed plugin id already exists in the diffusion scope
-                    if (
-                        allowed_plugin.id
-                        in self.diffusion_scope_loaded_plugins_map[
-                            plugin.diffusion_scope
+                    if allowed_plugin.id in self.diffusion_scope_loaded_plugins_map[plugin.diffusion_scope]:
+                        allowed_plugin = self.diffusion_scope_loaded_plugins_map[plugin.diffusion_scope][
+                            allowed_plugin.id
                         ]
-                    ):
-                        allowed_plugin = self.diffusion_scope_loaded_plugins_map[
-                            plugin.diffusion_scope
-                        ][allowed_plugin.id]
                     else:
                         # prints a debug message
                         self.debug(
@@ -4444,9 +4269,7 @@ class PluginManager(object):
                     )
 
                     # creates a new allowed plugin (in a new diffusion scope)
-                    allowed_plugin = self.create_plugin(
-                        allowed_plugin.id, allowed_plugin.version
-                    )
+                    allowed_plugin = self.create_plugin(allowed_plugin.id, allowed_plugin.version)
 
                     # loads the allowed plugin (if necessary) with allowed type
                     self.__load_plugin(allowed_plugin, ALLOWED_TYPE)
@@ -4477,9 +4300,7 @@ class PluginManager(object):
                 if capability_plugin.is_loaded():
                     self._inject_allowed(capability_plugin, plugin, plugin_capability)
 
-    def set_plugin_instance_diffusion_scope_loaded_plugins_map(
-        self, diffusion_scope_id, plugin_id, plugin_instance
-    ):
+    def set_plugin_instance_diffusion_scope_loaded_plugins_map(self, diffusion_scope_id, plugin_id, plugin_instance):
         """
         Sets the given plugin instance in the diffusion scope loaded plugins map.
 
@@ -4499,13 +4320,9 @@ class PluginManager(object):
 
         # sets the plugin instance in the diffusion scope loaded plugins map for the diffusion scope id
         # and plugin id
-        self.diffusion_scope_loaded_plugins_map[diffusion_scope_id][
-            plugin_id
-        ] = plugin_instance
+        self.diffusion_scope_loaded_plugins_map[diffusion_scope_id][plugin_id] = plugin_instance
 
-    def unset_plugin_instance_diffusion_scope_loaded_plugins_map(
-        self, diffusion_scope_id, plugin_id
-    ):
+    def unset_plugin_instance_diffusion_scope_loaded_plugins_map(self, diffusion_scope_id, plugin_id):
         """
         Unsets the given plugin instance in the diffusion scope loaded plugins map.
 
@@ -4550,9 +4367,7 @@ class PluginManager(object):
 
         # removes the element plugin from the other allowed plugin lists
         for plugin_allowed_plugins_map_key in self.plugin_allowed_plugins_map:
-            allowed_plugins_list = self.plugin_allowed_plugins_map[
-                plugin_allowed_plugins_map_key
-            ]
+            allowed_plugins_list = self.plugin_allowed_plugins_map[plugin_allowed_plugins_map_key]
             for allowed_plugins_list_element in allowed_plugins_list:
                 if not allowed_plugins_list_element[0] == plugin:
                     continue
@@ -4628,9 +4443,7 @@ class PluginManager(object):
         for plugin_capability_allowed in plugin.capabilities_allowed:
             if not plugin_capability_allowed in self.capabilities_plugins_map:
                 continue
-            capability_plugins = self.capabilities_plugins_map[
-                plugin_capability_allowed
-            ]
+            capability_plugins = self.capabilities_plugins_map[plugin_capability_allowed]
             if not plugin in capability_plugins:
                 continue
             capability_plugins.remove(plugin)
@@ -4658,16 +4471,12 @@ class PluginManager(object):
             return True
 
         # in case the plugin is lazy loaded
-        if (
-            plugin.loading_type == LAZY_LOADING_TYPE and not type == FULL_LOAD_TYPE
-        ) and plugin.is_lazy_loaded():
+        if (plugin.loading_type == LAZY_LOADING_TYPE and not type == FULL_LOAD_TYPE) and plugin.is_lazy_loaded():
             return True
 
         # test the plugin
         if not self.test_plugin_load(plugin):
-            self.info(
-                "Plugin '%s' v%s not ready to be loaded" % (plugin.name, plugin.version)
-            )
+            self.info("Plugin '%s' v%s not ready to be loaded" % (plugin.name, plugin.version))
             return False
 
         if MAIN_TYPE in plugin.capabilities:
@@ -4768,9 +4577,7 @@ class PluginManager(object):
         self.assert_plugin(plugin)
         is_loaded = plugin.is_loaded()
         if not is_loaded:
-            raise exceptions.ColonyException(
-                "not possible to load plugin '%s'" % plugin.name
-            )
+            raise exceptions.ColonyException("not possible to load plugin '%s'" % plugin.name)
 
     def assert_plugin(self, plugin):
         """
@@ -4853,9 +4660,7 @@ class PluginManager(object):
         # verifies if the plugin version is valid, it's considered to
         # be valid when it's not defined (anything counts) or when the
         # version matches the current plugin version
-        version_valid = not plugin_version or colony.libs.version_cmp(
-            plugin.version, plugin_version
-        )
+        version_valid = not plugin_version or colony.libs.version_cmp(plugin.version, plugin_version)
 
         # in case the version of the plugin is not valid returns invalid
         # as no valid plugin has been retrieved
@@ -4953,17 +4758,13 @@ class PluginManager(object):
         # iterates over all the plugin instances
         for plugin in self.plugin_instances:
             # retrieves the plugin capabilities structure
-            plugin_capabilities_structure = convert_to_capability_list(
-                plugin.capabilities
-            )
+            plugin_capabilities_structure = convert_to_capability_list(plugin.capabilities)
 
             # iterates over all the plugin capabilities structure
             for plugin_capability_structure in plugin_capabilities_structure:
                 # in case the plugin capability structure is capability is sub
                 # capability of the capability structure
-                if capability_structure.is_capability_or_sub_capability(
-                    plugin_capability_structure
-                ):
+                if capability_structure.is_capability_or_sub_capability(plugin_capability_structure):
                     # adds the plugin to the results list
                     result.append(self.assert_plugin(plugin))
 
@@ -4992,17 +4793,13 @@ class PluginManager(object):
             return result
 
         # retrieves the capability and sub capabilities list for the current capability
-        capability_and_sub_capabilities_list = [
-            capability
-        ] + self.capabilities_sub_capabilities_map[capability]
+        capability_and_sub_capabilities_list = [capability] + self.capabilities_sub_capabilities_map[capability]
 
         # iterates over all the capabilities (or sub capabilities) in the
         # capability and sub capabilities list
         for capability_or_sub_capability in capability_and_sub_capabilities_list:
             # retrieves the plugin instances that have the given capability
-            plugin_instances = self.capabilities_plugin_instances_map[
-                capability_or_sub_capability
-            ]
+            plugin_instances = self.capabilities_plugin_instances_map[capability_or_sub_capability]
 
             # adds the plugin instances to the result
             result += plugin_instances
@@ -5030,14 +4827,10 @@ class PluginManager(object):
         capability_structure = Capability(capability)
 
         for plugin in self.plugin_instances:
-            plugin_capabilities_structure = convert_to_capability_list(
-                plugin.capabilities
-            )
+            plugin_capabilities_structure = convert_to_capability_list(plugin.capabilities)
 
             for plugin_capability_structure in plugin_capabilities_structure:
-                if capability_structure.is_capability_or_sub_capability(
-                    plugin_capability_structure
-                ):
+                if capability_structure.is_capability_or_sub_capability(plugin_capability_structure):
                     result.append(plugin)
 
         return result
@@ -5077,14 +4870,10 @@ class PluginManager(object):
         capability_structure = Capability(capability_allowed)
 
         for plugin in self.plugin_instances:
-            plugin_capabilities_structure = convert_to_capability_list(
-                plugin.capabilities_allowed
-            )
+            plugin_capabilities_structure = convert_to_capability_list(plugin.capabilities_allowed)
 
             for plugin_capability_structure in plugin_capabilities_structure:
-                if capability_structure.is_capability_or_sub_capability(
-                    plugin_capability_structure
-                ):
+                if capability_structure.is_capability_or_sub_capability(plugin_capability_structure):
                     result.append(self.assert_plugin(plugin))
 
         return result
@@ -5109,14 +4898,10 @@ class PluginManager(object):
         capability_structure = Capability(capability_allowed)
 
         for plugin in self.plugin_instances:
-            plugin_capabilities_structure = convert_to_capability_list(
-                plugin.capabilities_allowed
-            )
+            plugin_capabilities_structure = convert_to_capability_list(plugin.capabilities_allowed)
 
             for plugin_capability_structure in plugin_capabilities_structure:
-                if capability_structure.is_capability_or_sub_capability(
-                    plugin_capability_structure
-                ):
+                if capability_structure.is_capability_or_sub_capability(plugin_capability_structure):
                     result.append(plugin)
 
         return result
@@ -5231,14 +5016,10 @@ class PluginManager(object):
         capability_structure = Capability(capability)
 
         for plugin in self.plugin_instances:
-            plugin_capabilities_structure = convert_to_capability_list(
-                plugin.capabilities_allowed
-            )
+            plugin_capabilities_structure = convert_to_capability_list(plugin.capabilities_allowed)
 
             for plugin_capability_structure in plugin_capabilities_structure:
-                if plugin_capability_structure.is_capability_or_sub_capability(
-                    capability_structure
-                ):
+                if plugin_capability_structure.is_capability_or_sub_capability(capability_structure):
                     result.append(self.assert_plugin(plugin))
 
         return result
@@ -5260,14 +5041,10 @@ class PluginManager(object):
         capability_structure = Capability(capability)
 
         for plugin in self.plugin_instances:
-            plugin_capabilities_structure = convert_to_capability_list(
-                plugin.capabilities_allowed
-            )
+            plugin_capabilities_structure = convert_to_capability_list(plugin.capabilities_allowed)
 
             for plugin_capability_structure in plugin_capabilities_structure:
-                if plugin_capability_structure.is_capability_or_sub_capability(
-                    capability_structure
-                ):
+                if plugin_capability_structure.is_capability_or_sub_capability(capability_structure):
                     result.append(plugin)
 
         return result
@@ -5381,9 +5158,7 @@ class PluginManager(object):
             # validates that the process result was successful, raising
             # an exception otherwise
             if values == None or values == (None,):
-                raise exceptions.ColonyException(
-                    "no value resolved while processing command '%s'" % command
-                )
+                raise exceptions.ColonyException("no value resolved while processing command '%s'" % command)
 
             # retrieves the start and end position of the match
             start_position = special_value_match.start()
@@ -5512,14 +5287,10 @@ class PluginManager(object):
         temporary_directory = tempfile.gettempdir()
 
         # creates the temporary plugin path
-        temporary_plugin_path = (
-            temporary_directory + "/colony/" + plugin_id + "/" + extra_path
-        )
+        temporary_plugin_path = temporary_directory + "/colony/" + plugin_id + "/" + extra_path
 
         # normalizes the temporary plugin path
-        normalized_temporary_plugin_path = colony.libs.normalize_path(
-            temporary_plugin_path
-        )
+        normalized_temporary_plugin_path = colony.libs.normalize_path(temporary_plugin_path)
 
         # returns the normalized temporary plugin path
         return normalized_temporary_plugin_path
@@ -5545,14 +5316,10 @@ class PluginManager(object):
         current_time_value = int(time.time() * 10000)
 
         # creates the (final) temporary plugin path generated for the current time value
-        temporary_plugin_generated_path = os.path.join(
-            temporary_plugin_path, str(current_time_value)
-        )
+        temporary_plugin_generated_path = os.path.join(temporary_plugin_path, str(current_time_value))
 
         # normalizes the temporary plugin generated path
-        normalized_temporary_plugin_generated_path = colony.libs.normalize_path(
-            temporary_plugin_generated_path
-        )
+        normalized_temporary_plugin_generated_path = colony.libs.normalize_path(temporary_plugin_generated_path)
 
         # returns the normalized temporary plugin generated path
         return normalized_temporary_plugin_generated_path
@@ -5629,18 +5396,14 @@ class PluginManager(object):
         """
 
         # retrieves the configuration paths for the plugin
-        plugin_configuration_paths = self.get_plugin_configuration_paths_by_id(
-            plugin_id
-        )
+        plugin_configuration_paths = self.get_plugin_configuration_paths_by_id(plugin_id)
 
         # iterates over all the plugin configuration paths, to check
         # if the configuration file exists in any of the paths
         for plugin_configuration_path in plugin_configuration_paths:
             # creates the configuration file full path from the configuration
             # file and the configuration file path
-            configuration_file_full_path = os.path.join(
-                plugin_configuration_path, configuration_file_path
-            )
+            configuration_file_full_path = os.path.join(plugin_configuration_path, configuration_file_path)
 
             # in case the configuration file full path does not exist
             if not os.path.exists(configuration_file_full_path):
@@ -5746,8 +5509,7 @@ class PluginManager(object):
 
             # prints a debug message
             self.debug(
-                "Registering event '%s' from '%s' v%s in plugin manager"
-                % (event_name, plugin.name, plugin.version)
+                "Registering event '%s' from '%s' v%s in plugin manager" % (event_name, plugin.name, plugin.version)
             )
 
     def unregister_plugin_manager_event(self, plugin, event_name):
@@ -5784,9 +5546,7 @@ class PluginManager(object):
         event_names_list = legacy.keys(self.event_plugins_fired_loaded_map)
 
         # retrieves all the events and super events that match the generated event
-        events_or_super_events_list = get_all_events_or_super_events_in_list(
-            event_name, event_names_list
-        )
+        events_or_super_events_list = get_all_events_or_super_events_in_list(event_name, event_names_list)
 
         # iterates over all the events and super events for notification
         for event_or_super_event in events_or_super_events_list:
@@ -5795,9 +5555,7 @@ class PluginManager(object):
 
             # iterates over all the plugins registered for notification to be able
             # to notify them about the new event that has just been triggered
-            for event_plugin_loaded in self.event_plugins_fired_loaded_map[
-                event_or_super_event
-            ]:
+            for event_plugin_loaded in self.event_plugins_fired_loaded_map[event_or_super_event]:
                 self.debug(
                     "Notifying '%s' v%s about event '%s' generated in plugin manager"
                     % (
@@ -5880,9 +5638,7 @@ class PluginManager(object):
             # iterates over all the init plugin load plugins
             for execute_plugin in execute_plugins_list:
                 # retrieves the validation method
-                validation_execute_call = getattr(
-                    execute_plugin, "is_valid_" + execution_type
-                )
+                validation_execute_call = getattr(execute_plugin, "is_valid_" + execution_type)
 
                 # runs the validation test
                 if validation_execute_call(*arguments):
@@ -5898,9 +5654,7 @@ class PluginManager(object):
 
         return True
 
-    def exists_plugin_manager_plugin_execute_conditional(
-        self, execution_type, arguments
-    ):
+    def exists_plugin_manager_plugin_execute_conditional(self, execution_type, arguments):
         """
         Tests all the available plugin manager plugins of the type execution_type
         in the search of one that is available for execution.
@@ -5923,9 +5677,7 @@ class PluginManager(object):
             # iterates over all the init plugin load plugins
             for execute_plugin in execute_plugins_list:
                 # retrieves the validation method
-                validation_execute_call = getattr(
-                    execute_plugin, "is_valid_" + execution_type
-                )
+                validation_execute_call = getattr(execute_plugin, "is_valid_" + execution_type)
 
                 # runs the validation test
                 if validation_execute_call(*arguments):
@@ -6403,9 +6155,7 @@ class PluginManager(object):
 
         # creates the plugins path file path joining the manager path and the
         # default variable path
-        plugin_paths_file_path = os.path.join(
-            manager_path, DEFAULT_PLUGIN_PATHS_FILE_PATH
-        )
+        plugin_paths_file_path = os.path.join(manager_path, DEFAULT_PLUGIN_PATHS_FILE_PATH)
 
         # returns the plugin paths file path
         return plugin_paths_file_path
@@ -6664,9 +6414,7 @@ class PluginManager(object):
         :return: The result of the command processing.
         """
 
-        return (
-            os.path.join(self.manager_path, self.prefix_paths.get(*arguments) or ""),
-        )
+        return (os.path.join(self.manager_path, self.prefix_paths.get(*arguments) or ""),)
 
     def _relaunch_system(self):
         """
@@ -6705,10 +6453,7 @@ class PluginManager(object):
             # prints an error message about the problem in the unloading process
             # then stops the blocking system structures and exists the current
             # process with an error value (notifies the operative system)
-            self.error(
-                "Problem unloading the system '%s', killing the system..."
-                % legacy.UNICODE(exception)
-            )
+            self.error("Problem unloading the system '%s', killing the system..." % legacy.UNICODE(exception))
             self._stop_blocking_system_structures()
             exit(2)
 
@@ -6745,10 +6490,7 @@ class PluginManager(object):
 
         # prints an error message about the timeout on exiting the system
         # and then exits with an error code
-        self.error(
-            "Unloading timeout (%.2f seconds) reached, killing the system..."
-            % DEFAULT_UNLOAD_SYSTEM_TIMEOUT
-        )
+        self.error("Unloading timeout (%.2f seconds) reached, killing the system..." % DEFAULT_UNLOAD_SYSTEM_TIMEOUT)
         exit(2)
 
     def _handle_system_exception(self, exception):
@@ -6772,10 +6514,7 @@ class PluginManager(object):
             # print an information message about the unloading
             # of the current system, this is printed at the beginning
             # of the unloading process of the plugin system
-            self.info(
-                "Unloading system due to exception: '%s' of type '%s'"
-                % (exception_message, exception_type)
-            )
+            self.info("Unloading system due to exception: '%s' of type '%s'" % (exception_message, exception_type))
 
             # starts the unloading of the system, this is a blocking
             # method call and may take some time to be completed
@@ -6783,10 +6522,7 @@ class PluginManager(object):
 
             # print an information message about the unloading
             # that has completed for the current system
-            self.info(
-                "Unloaded system due to exception: '%s' of type '%s'"
-                % (exception_message, exception_type)
-            )
+            self.info("Unloaded system due to exception: '%s' of type '%s'" % (exception_message, exception_type))
         except (KeyboardInterrupt, SystemExit) as exception:
             # retrieves the message that is going to be used for the
             # representation of the exception in the logging
@@ -6794,10 +6530,7 @@ class PluginManager(object):
 
             # prints an error message about the problem in the unloading
             # of the current plugin system, required for debugging
-            self.error(
-                "Problem unloading the system '%s', killing the system..."
-                % exception_message
-            )
+            self.error("Problem unloading the system '%s', killing the system..." % exception_message)
 
             # stops the blocking system structures and then exits
             # the current process with an error code indicating that
@@ -7163,10 +6896,7 @@ class PackageDependency(Dependency):
             # case returns immediately (in error) otherwise prints the logging messages
             if not manager.logger:
                 return False
-            manager.logger.info(
-                "Package '%s' v%s does not exist in your system"
-                % (self.name, self.version)
-            )
+            manager.logger.info("Package '%s' v%s does not exist in your system" % (self.name, self.version))
             if self.url:
                 manager.logger.info("You can download the package at %s" % self.url)
             return False
@@ -7582,9 +7312,7 @@ def is_capability_or_sub_capability(base_capability, capability):
     capability_structure = Capability(capability)
 
     # returns the result of the is capability or sub capability test
-    return base_capability_structure.is_capability_or_sub_capability(
-        capability_structure
-    )
+    return base_capability_structure.is_capability_or_sub_capability(capability_structure)
 
 
 def is_capability_or_sub_capability_in_list(base_capability, capability_list):
@@ -7910,41 +7638,30 @@ class PluginThread(threading.Thread):
             ):
                 self.unload_plugin_thread.join(DEFAULT_UNLOAD_SYSTEM_TIMEOUT)
             if (
-                self.end_unload_plugin_thread
-                and self.end_unload_plugin_thread.isAlive()
+                self.end_unload_plugin_thread and self.end_unload_plugin_thread.isAlive()
                 if hasattr(self.end_unload_plugin_thread, "isAlive")
                 else self.end_unload_plugin_thread.is_alive()
             ):
                 self.end_unload_plugin_thread.join(DEFAULT_UNLOAD_SYSTEM_TIMEOUT)
             return True
         elif event.event_name == "load":
-            self.load_plugin_thread = PluginEventThread(
-                self.plugin, self.plugin.load_plugin
-            )
+            self.load_plugin_thread = PluginEventThread(self.plugin, self.plugin.load_plugin)
             self.load_plugin_thread.start()
             self.load_complete = True
         elif event.event_name == "lazy_load":
-            self.lazy_load_plugin_thread = PluginEventThread(
-                self.plugin, self.plugin.lazy_load_plugin
-            )
+            self.lazy_load_plugin_thread = PluginEventThread(self.plugin, self.plugin.lazy_load_plugin)
             self.lazy_load_plugin_thread.start()
             self.load_complete = True
         elif event.event_name == "end_load":
-            self.end_load_plugin_thread = PluginEventThread(
-                self.plugin, self.plugin.end_load_plugin
-            )
+            self.end_load_plugin_thread = PluginEventThread(self.plugin, self.plugin.end_load_plugin)
             self.end_load_plugin_thread.start()
             self.end_load_complete = True
         elif event.event_name == "unload":
-            self.unload_plugin_thread = PluginEventThread(
-                self.plugin, self.plugin.unload_plugin
-            )
+            self.unload_plugin_thread = PluginEventThread(self.plugin, self.plugin.unload_plugin)
             self.unload_plugin_thread.start()
             self.unload_complete = True
         elif event.event_name == "end_unload":
-            self.end_unload_plugin_thread = PluginEventThread(
-                self.plugin, self.plugin.end_unload_plugin
-            )
+            self.end_unload_plugin_thread = PluginEventThread(self.plugin, self.plugin.end_unload_plugin)
             self.end_unload_plugin_thread.start()
             self.end_unload_complete = True
 
@@ -8010,9 +7727,7 @@ class PluginEventThread(threading.Thread):
         else:
             try:
                 # retrieves the original semaphore release count
-                original_semaphore_release_count = (
-                    self.plugin.ready_semaphore_release_count
-                )
+                original_semaphore_release_count = self.plugin.ready_semaphore_release_count
 
                 # calls the event thread method
                 self.method()
@@ -8020,9 +7735,7 @@ class PluginEventThread(threading.Thread):
                 # prints an error message to the current logging infra-structure
                 # then sets the exception in the plugin instance and signals the
                 # error state in the plugin (to be used latter)
-                self.plugin.error(
-                    "Problem starting thread plugin: " + legacy.UNICODE(exception)
-                )
+                self.plugin.error("Problem starting thread plugin: " + legacy.UNICODE(exception))
                 self.plugin.exception = exception
                 self.plugin.error_state = True
 

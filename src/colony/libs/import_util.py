@@ -89,16 +89,12 @@ def __import__(module_name, persist_value=True):
     except ValueError:
         # raises a runtime error because it could
         # not retrieve the module
-        raise ImportError(
-            "No module named '%s' found in global or local references" % module_name
-        )
+        raise ImportError("No module named '%s' found in global or local references" % module_name)
 
     # raise a runtime error in case the module
     # is not found (problem in the import)
     if not module:
-        raise ImportError(
-            "No module named '%s' found in global or local references" % module_name
-        )
+        raise ImportError("No module named '%s' found in global or local references" % module_name)
 
     # in case the module value was retrieved from an upper
     # calling layer and the persist value flag is set (cache)
